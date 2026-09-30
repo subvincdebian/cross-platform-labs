@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberClub - Застосунок для кіберспортивного клубу</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="logo-tag">CYBER ARENA</div>
+        <h1>CyberClub</h1>
+        <p>Кросплатформний вебзастосунок для кіберспортивного клубу</p>
+    </div>
+</header>
+
+<main class="main container">
+
+    <section class="card">
+        <h2>Про застосунок</h2>
+        <p>
+            CyberClub - це адаптивний сервіс для відвідувачів та адміністраторів комп'ютерного клубу. 
+            Застосунок спроєктовано за веб-підходом, що дозволяє гравцям переглядати вільні місця, 
+            бронювати ігрові сесії та записуватися на турніри з будь-якого пристрою: ПК, планшета чи смартфона 
+            (як у звичайному браузері, так і у вигляді мобільного застосунку через WebView).
+        </p>
+
+        <h3>Основні функції:</h3>
+        <ul class="features-list">
+            <li>Онлайн-бронювання ігрових місць у Standard, VIP та Boot Camp зонах</li>
+            <li>Реєстрація гравців на внутрішні клубні турніри (CS2, Dota 2, Valorant)</li>
+            <li>Автоматичне збереження записів бронювання у локальній пам'яті (LocalStorage)</li>
+            <li>Адаптивний темний інтерфейс для мобільних пристроїв та комп'ютерів</li>
+            <li>Підтримка пакування у мобільний застосунок через WebView-контейнер</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Бронювання ігрового місця</h2>
+        <div class="form-group">
+            <input 
+                type="text" 
+                id="playerNameInput" 
+                class="input-field" 
+                placeholder="Нікнейм гравця..."
+                autocomplete="off"
+            >
+            <select id="zoneSelect" class="select-field">
+                <option value="Standard Zone (ПК #1-20)">Standard Zone (ПК #1-20)</option>
+                <option value="VIP Lounge (ПК #21-30)">VIP Lounge (ПК #21-30)</option>
+                <option value="Boot Camp 5x5 (Team Room)">Boot Camp 5x5 (Team Room)</option>
+                <option value="PlayStation 5 Zone">PlayStation 5 Zone</option>
+            </select>
+            <button id="bookButton" class="button">
+                Забронювати
+            </button>
+        </div>
+        <p id="statusMessage" class="status-message"></p>
+    </section>
+
+    <section class="card">
+        <h2>Активні бронювання</h2>
+        <ul id="bookingsList" class="bookings-list">
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Технологічний стек</h2>
+        <p>
+            Архітектура першого модуля застосунку базується на веб-технологіях з оптимізацією під мобільні екрани:
+        </p>
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Компонент</th>
+                    <th>Технологія</th>
+                    <th>Призначення</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Структура</td>
+                    <td>HTML5</td>
+                    <td>Семантична структура інформаційних та інтерактивних блоків</td>
+                </tr>
+                <tr>
+                    <td>Оформлення</td>
+                    <td>CSS3 (Dark Theme + Media Queries)</td>
+                    <td>Геймерський темний дизайн з адаптацією під мобільні екрани</td>
+                </tr>
+                <tr>
+                    <td>Логіка</td>
+                    <td>JavaScript (ES6+)</td>
+                    <td>Обробка форми бронювання та збереження у LocalStorage</td>
+                </tr>
+                <tr>
+                    <td>Середовище</td>
+                    <td>Браузер / WebView</td>
+                    <td>Кросплатформне виконання на смартфонах, планшетах і ПК</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>Крос-платформне програмування | Лабораторна робота № 1.2</p>
+        <p>Тема проєкту: Розробка застосунку для кіберспортивного клубу | Виконав: Аг Міхал (ВЕБ-21)</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

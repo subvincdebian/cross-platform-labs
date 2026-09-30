@@ -1,0 +1,34 @@
+### 1. Отримати всі бронювання кіберклубу
+GET http://localhost:3000/api/bookings
+Accept: application/json
+
+### 2. Створити нове бронювання ігрового місця
+POST http://localhost:3000/api/bookings
+Content-Type: application/json
+
+{
+  "playerName": "s1mple_pro",
+  "zone": "VIP Lounge (ПК #21-30)",
+  "pcNumber": 22,
+  "durationHours": 3,
+  "price": 240,
+  "notes": "Ігровий монітор 360Hz та навушники HyperX"
+}
+
+### 3. Отримати бронювання за ID (замініть на реальний id після виконання POST)
+GET http://localhost:3000/api/bookings/66fd36814c8101487f5d91aa
+Accept: application/json
+
+### 4. Оновити інформацію про бронювання за ID
+PUT http://localhost:3000/api/bookings/66fd36814c8101487f5d91aa
+Content-Type: application/json
+
+{
+  "durationHours": 4,
+  "price": 320,
+  "notes": "Продовжено на 1 годину, додано енергетик Red Bull"
+}
+
+### 5. Видалити / скасувати бронювання за ID
+DELETE http://localhost:3000/api/bookings/66fd36814c8101487f5d91aa
+Accept: application/json
