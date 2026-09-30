@@ -32,3 +32,10 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Documents and screenshots (stored separately)
+*.docx
+*.doc
+*.pdf
+screenshot_*.png
+
