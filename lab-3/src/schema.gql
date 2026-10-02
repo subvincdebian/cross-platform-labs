@@ -1,0 +1,63 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthPayload {
+  token: String!
+
+  user: User!
+}
+
+type Booking {
+  author: User!
+
+  durationHours: Int!
+
+  id: ID!
+
+  notes: String
+
+  pcNumber: Int!
+
+  price: Float!
+
+  status: String!
+
+  user: User!
+
+  zone: String!
+}
+
+type Mutation {
+  createBooking(
+    durationHours: Int!
+    notes: String
+    pcNumber: Int!
+    price: Float!
+    zone: String!
+  ): Booking!
+
+  deleteBooking(id: ID!): Boolean!
+
+  login(email: String!, password: String!): AuthPayload!
+
+  register(email: String!, name: String!, password: String!): AuthPayload!
+}
+
+type Query {
+  booking(id: ID!): Booking
+
+  bookings: [Booking!]!
+
+  me: User
+
+  users: [User!]!
+}
+
+type User {
+  email: String!
+
+  id: ID!
+
+  name: String!
+}

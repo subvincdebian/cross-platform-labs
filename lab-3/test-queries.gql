@@ -1,0 +1,84 @@
+mutation RegisterUser {
+  register(
+    name: "Іван Петренко"
+    email: "ivan@example.com"
+    password: "123456"
+  ) {
+    token
+    user {
+      id
+      name
+      email
+    }
+  }
+}
+
+mutation LoginUser {
+  login(email: "ivan@example.com", password: "123456") {
+    token
+    user {
+      id
+      name
+      email
+    }
+  }
+}
+
+query GetMeWithToken {
+  me {
+    id
+    name
+    email
+  }
+}
+
+mutation CreateBookingWithToken {
+  createBooking(
+    zone: "VIP Lounge (ПК #21-30)"
+    pcNumber: 25
+    durationHours: 3
+    price: 240.0
+    notes: "Ігровий монітор 360Hz та навушники HyperX"
+  ) {
+    id
+    zone
+    pcNumber
+    durationHours
+    price
+    status
+    notes
+    user {
+      id
+      name
+      email
+    }
+  }
+}
+
+query GetAllBookings {
+  bookings {
+    id
+    zone
+    pcNumber
+    durationHours
+    price
+    status
+    notes
+    user {
+      id
+      name
+    }
+  }
+}
+
+query GetAllUsers {
+  users {
+    id
+    name
+    email
+  }
+}
+
+mutation DeleteBookingWithToken {
+  deleteBooking(id: "2")
+}

@@ -27,7 +27,7 @@
 | :--- | :--- | :--- | :--- |
 | [`lab-1/`](./lab-1/) | **ЛР № 1.1 – 1.2:** Основи кросплатформності та створення адаптивного вебінтерфейсу | HTML5, CSS3, JavaScript, LocalStorage | Адаптивна вебсторінка кіберклубу з темною темою, бронюванням ПК, підтримкою WebView та збереженням сесій у LocalStorage. |
 | [`lab-2/`](./lab-2/) | **ЛР № 2:** Розроблення серверної частини застосунку (REST API) | Node.js, NestJS, TypeScript, MongoDB Atlas, Mongoose | Модульний REST API бекенд: схема `Booking`, DTO-валідація, сервіси, контролери, CORS, middleware логування HTTP-запитів. |
-| `lab-3/` | **ЛР № 3:** Побудова GraphQL API засобами Apollo Server | Node.js, GraphQL, Apollo Server | *Заплановано* |
+| [`lab-3/`](./lab-3/) | **ЛР № 3:** Побудова GraphQL API засобами Apollo Server | Node.js, NestJS, GraphQL, Apollo Server, JWT | Модульний GraphQL бекенд: Apollo Sandbox, автентифікація (JWT, bcrypt), сутність `Booking`, захищені запити `me`, мутації `register`, `login`, `createBooking`, `deleteBooking`. |
 | `lab-4/` | **ЛР № 4:** Вебверсія SPA-застосунку на React | React, React Hooks, Tailwind CSS | *Заплановано* |
 | `lab-5/` | **ЛР № 5:** Мобільний застосунок | React Native, Expo | *Заплановано* |
 | `lab-6/` | **ЛР № 6:** Десктопний застосунок | Electron | *Заплановано* |
@@ -61,3 +61,24 @@
 5. Тестування API:
    * Використовуйте файл `lab-2/requests.http` через розширення **REST Client** або **Thunder Client** у VS Code.
    * Доступні ендпоінти: `GET /api/bookings`, `POST /api/bookings`, `GET /api/bookings/:id`, `PUT /api/bookings/:id`, `DELETE /api/bookings/:id`.
+
+### 3. Лабораторна робота № 3 (`lab-3`)
+1. Перейдіть до папки GraphQL сервера:
+   ```bash
+   cd lab-3
+   ```
+2. Встановіть залежності (якщо не встановлені):
+   ```bash
+   npm install
+   ```
+3. Запустіть GraphQL сервер:
+   ```bash
+   npm run dev
+   # або npm run start:dev
+   ```
+4. Відкрийте у браузері інтерфейс **Apollo Sandbox**:
+   * URL: `http://localhost:4001/`
+5. Тестування GraphQL API:
+   * Готові запити та мутації знаходяться у файлі `lab-3/test-queries.gql`.
+   * Підтримуються операції: `register`, `login`, захищений запит `me` (з токеном/без токена), захищена мутація `createBooking`, перегляд списків `bookings` та `users`, видалення `deleteBooking`.
+
