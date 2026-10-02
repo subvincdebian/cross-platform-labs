@@ -2,62 +2,94 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Результат автентифікації користувача"""
 type AuthPayload {
+  """JWT токен доступу"""
   token: String!
 
+  """Дані користувача"""
   user: User!
 }
 
+"""Бронювання ігрового місця в кіберклубі CyberClub"""
 type Booking {
+  """Автор запису (для зворотної сумісності з прикладом методички)"""
   author: User!
 
+  """Тривалість гри (години)"""
   durationHours: Int!
 
+  """Унікальний ідентифікатор бронювання"""
   id: ID!
 
+  """Додаткові побажання чи коментар"""
   notes: String
 
+  """Номер комп’ютера (ПК)"""
   pcNumber: Int!
 
+  """Загальна вартість оренди"""
   price: Float!
 
+  """Статус бронювання (active, completed, cancelled)"""
   status: String!
 
+  """Користувач (гравець), який забронював місце"""
   user: User!
 
+  """Ігрова зона клубу (наприклад, VIP Lounge, Boot Camp)"""
   zone: String!
 }
 
 type Mutation {
-  createBooking(
-    durationHours: Int!
-    notes: String
-    pcNumber: Int!
-    price: Float!
-    zone: String!
-  ): Booking!
+  """
+  Створити нове бронювання місця (доступно лише авторизованому користувачу)
+  """
+  createBooking(durationHours: Int!, notes: String, pcNumber: Int!, price: Float!, zone: String!): Booking!
 
+  """
+  Створення нотатки/бронювання за шаблоном методички createNote(title, text)
+  """
+  createNote(text: String!, title: String!): Booking!
+
+  """Видалити бронювання за ID (доступно лише авторизованому користувачу)"""
   deleteBooking(id: ID!): Boolean!
 
+  """Аліас для deleteNote за шаблоном методички"""
+  deleteNote(id: ID!): Boolean!
+
+  """Вхід існуючого користувача"""
   login(email: String!, password: String!): AuthPayload!
 
+  """Реєстрація нового користувача"""
   register(email: String!, name: String!, password: String!): AuthPayload!
 }
 
 type Query {
+  """Отримати бронювання за ID"""
   booking(id: ID!): Booking
 
+  """Отримати список усіх активних бронювань кіберклубу"""
   bookings: [Booking!]!
 
+  """Дані поточного авторизованого користувача (або null без токена)"""
   me: User
 
+  """Аліас для сумісності з прикладом методички (notes)"""
+  notes: [Booking!]!
+
+  """Список усіх зареєстрованих користувачів"""
   users: [User!]!
 }
 
+"""Користувач системи CyberClub"""
 type User {
+  """Електронна пошта користувача"""
   email: String!
 
+  """Унікальний ідентифікатор"""
   id: ID!
 
+  """Ім'я або нікнейм користувача"""
   name: String!
 }
