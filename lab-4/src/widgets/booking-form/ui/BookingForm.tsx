@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Sparkles, Calendar, Clock, Monitor, Timer } from 'lucide-react';
 import { Button, Input, Select, Card, AlertMessage } from '@/shared/ui';
 import { GAMING_ZONES, GamingZone } from '@/shared/config/zones';
 import { Booking } from '@/entities/booking';
@@ -13,7 +14,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
   const [playerName, setPlayerName] = useState('');
   const [zoneId, setZoneId] = useState(GAMING_ZONES[0].id);
   const [date, setDate] = useState(today);
-  const [startTime, setStartTime] = useState('14:00');
+  const [startTime, setStartTime] = useState('15:00');
   const [durationHours, setDurationHours] = useState<number>(2);
   const [pcNumber, setPcNumber] = useState<number>(1);
   const [notes, setNotes] = useState('');
@@ -45,7 +46,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
     if (pcNumber <= 0 || pcNumber > currentZone.totalPcs) {
       setAlert({
         type: 'error',
-        message: `Номер ПК має бути від 1 до ${currentZone.totalPcs}!`,
+        message: `Номер ПК для обраної зони має бути від 1 до ${currentZone.totalPcs}!`,
       });
       return;
     }
@@ -73,17 +74,29 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
 
   const zoneOptions = GAMING_ZONES.map((z) => ({
     value: z.id,
-    label: `${z.name} (${z.ratePerHour} ₴/год)`,
+    label: `${z.name} — ${z.ratePerHour} ₴/год`,
   }));
 
   return (
-    <Card className="flex flex-col gap-3.5">
-      <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-slate-100">
-          Нове бронювання
-        </h2>
-        <span className="text-xs text-slate-400 font-mono">
-          {estimatedPrice} ₴
+    <Card className="flex flex-col gap-4">
+      {/* Заголовок форми */}
+      <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <Sparkles className="w-3.5 h-3.5" />
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold text-slate-100">
+              Нове бронювання
+            </h2>
+            <p className="text-[11px] text-slate-500">
+              Оформлення ігрового місця
+            </p>
+          </div>
+        </div>
+
+        <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${currentZone.accent.border} ${currentZone.accent.bg} ${currentZone.accent.text}`}>
+          {currentZone.ratePerHour} ₴ / год
         </span>
       </div>
 
@@ -95,19 +108,20 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
         />
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
         <Input
-          label="Нікнейм гравця"
+          label="Гравець"
+          badge="Нікнейм"
           value={playerName}
           onChange={(e) => {
             setPlayerName(e.target.value);
             if (alert?.type === 'error') setAlert(null);
           }}
-          placeholder="s1mple"
+          placeholder="Наприклад: s1mple"
         />
 
         <Select
-          label="Зона"
+          label="Ігрова зона"
           value={zoneId}
           onChange={(e) => {
             const newZoneId = e.target.value;
@@ -120,7 +134,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
           options={zoneOptions}
         />
 
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           <Input
             label="Дата"
             type="date"
@@ -128,16 +142,16 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
             onChange={(e) => setDate(e.target.value)}
           />
           <Input
-            label="Час"
+            label="Час початку"
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-3">
           <Input
-            label={`Місце (1-${currentZone.totalPcs})`}
+            label={`ПК # (макс. ${currentZone.totalPcs})`}
             type="number"
             min={1}
             max={currentZone.totalPcs}
@@ -158,10 +172,23 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
           label="Коментар"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          placeholder="Опціонально"
+          placeholder="Побажання щодо девайсів чи ігор"
         />
 
-        <Button type="submit" variant="primary" size="md" className="w-full mt-1">
+        {/* Розрахунковий блок чека */}
+        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 font-mono text-xs">
+          <span className="text-slate-500">
+            {durationHours} год &times; {currentZone.ratePerHour} ₴
+          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-slate-400 text-[11px]">РАЗОМ:</span>
+            <span className="text-sm font-bold text-emerald-400">
+              {estimatedPrice} ₴
+            </span>
+          </div>
+        </div>
+
+        <Button type="submit" variant="primary" size="md" className="w-full">
           Додати бронювання
         </Button>
       </form>

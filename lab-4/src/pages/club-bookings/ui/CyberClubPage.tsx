@@ -18,7 +18,7 @@ const INITIAL_BOOKINGS: Booking[] = [
     pcNumber: 23,
     durationHours: 3,
     price: 270,
-    notes: 'Турнірна розминка',
+    notes: 'Турнірна розминка перед Faceit Major',
     done: false,
     createdAt: new Date().toISOString(),
   },
@@ -26,13 +26,13 @@ const INITIAL_BOOKINGS: Booking[] = [
     id: 'demo-2',
     playerName: 'b1t_headshot',
     zoneId: 'bootcamp',
-    zoneName: 'Boot Camp',
+    zoneName: 'Boot Camp 5x5',
     date: new Date().toISOString().split('T')[0],
     startTime: '18:00',
     pcNumber: 2,
     durationHours: 4,
     price: 480,
-    notes: 'Праки з командою',
+    notes: 'Праки з NaVi',
     done: false,
     createdAt: new Date().toISOString(),
   },
@@ -40,13 +40,27 @@ const INITIAL_BOOKINGS: Booking[] = [
     id: 'demo-3',
     playerName: 'CyberGamer_UA',
     zoneId: 'standard',
-    zoneName: 'Standard',
+    zoneName: 'Standard Zone',
     date: new Date().toISOString().split('T')[0],
     startTime: '11:00',
     pcNumber: 7,
     durationHours: 2,
     price: 120,
     done: true,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: 'demo-4',
+    playerName: 'DualSense_Pro',
+    zoneId: 'ps5',
+    zoneName: 'PlayStation 5',
+    date: new Date().toISOString().split('T')[0],
+    startTime: '20:00',
+    pcNumber: 1,
+    durationHours: 2,
+    price: 160,
+    notes: 'FC 25 турнір 2v2',
+    done: false,
     createdAt: new Date().toISOString(),
   },
 ];
@@ -115,7 +129,12 @@ export const CyberClubPage: React.FC = () => {
   }, [bookings, filters]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-slate-800 selection:text-white">
+    <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col font-sans relative overflow-x-hidden selection:bg-emerald-500/30 selection:text-emerald-200">
+      {/* Делікатні фонові світлові плями (ambient mesh) */}
+      <div className="pointer-events-none fixed -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-emerald-500/[0.06] blur-[140px]" />
+      <div className="pointer-events-none fixed top-1/3 -right-40 w-[500px] h-[500px] rounded-full bg-violet-500/[0.06] blur-[140px]" />
+      <div className="pointer-events-none fixed -bottom-40 left-1/3 w-[500px] h-[500px] rounded-full bg-sky-500/[0.04] blur-[140px]" />
+
       <Header
         totalCount={totalCount}
         activeCount={activeCount}
@@ -123,15 +142,15 @@ export const CyberClubPage: React.FC = () => {
         totalRevenue={totalRevenue}
       />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-          {/* Форма */}
-          <div className="md:col-span-5 w-full">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Ліва частина: Форма */}
+          <div className="lg:col-span-5 w-full lg:sticky lg:top-24">
             <BookingForm onAddBooking={handleAddBooking} />
           </div>
 
-          {/* Список */}
-          <div className="md:col-span-7 flex flex-col gap-3.5 w-full">
+          {/* Права частина: Фільтрація та список */}
+          <div className="lg:col-span-7 flex flex-col gap-3.5 w-full">
             <BookingFilters
               filters={filters}
               onFilterChange={setFilters}
@@ -139,6 +158,17 @@ export const CyberClubPage: React.FC = () => {
               activeCount={activeCount}
               completedCount={completedCount}
             />
+
+            <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-mono">
+              <span>
+                ПОКАЗАНО: <strong className="text-slate-300 font-bold">{filteredBookings.length}</strong> / {totalCount}
+              </span>
+              {filters.status !== 'all' && (
+                <span className="text-emerald-400">
+                  Фільтр: {filters.status === 'active' ? 'Активні' : 'Виконані'}
+                </span>
+              )}
+            </div>
 
             <BookingList
               bookings={filteredBookings}
@@ -152,6 +182,16 @@ export const CyberClubPage: React.FC = () => {
           </div>
         </div>
       </main>
+
+      {/* Лаконічний футер */}
+      <footer className="border-t border-slate-900/80 py-5 text-center text-xs text-slate-600 font-mono relative z-10">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>CyberClub &copy; 2026 &middot; Крос-платформне програмування &middot; ЛР № 4</span>
+          <span className="text-slate-500">
+            FSD &middot; React 19 &middot; Tailwind v4
+          </span>
+        </div>
+      </footer>
     </div>
   );
 };

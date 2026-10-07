@@ -30,50 +30,50 @@ export const BookingFilters: React.FC<BookingFiltersProps> = ({
     onFilterChange({ ...filters, zoneId: e.target.value });
   };
 
-  const statusOptions: { id: BookingStatusFilter; label: string; count: number }[] = [
-    { id: 'all', label: 'Всі', count: totalCount },
-    { id: 'active', label: 'Активні', count: activeCount },
-    { id: 'completed', label: 'Виконано', count: completedCount },
+  const statusOptions: { id: BookingStatusFilter; label: string; count: number; activeColor: string }[] = [
+    { id: 'all', label: 'Всі', count: totalCount, activeColor: 'text-slate-100' },
+    { id: 'active', label: 'Активні', count: activeCount, activeColor: 'text-sky-400' },
+    { id: 'completed', label: 'Виконано', count: completedCount, activeColor: 'text-emerald-400' },
   ];
 
   return (
-    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-      {/* Сегментований перемикач статусу */}
-      <div className="flex items-center bg-slate-900 border border-slate-800 rounded-lg p-0.5 text-xs">
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-900/40 p-1.5 rounded-xl border border-slate-800/80">
+      {/* Сегментовані таби */}
+      <div className="flex items-center bg-slate-950/60 p-1 rounded-lg border border-slate-800/60 text-xs">
         {statusOptions.map((opt) => (
           <button
             key={opt.id}
             type="button"
             onClick={() => handleStatusChange(opt.id)}
-            className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
               filters.status === opt.id
-                ? 'bg-slate-800 text-slate-100 shadow-sm'
+                ? `bg-slate-800 ${opt.activeColor} shadow-sm border border-slate-700/60`
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            {opt.label} <span className="text-slate-500 ml-1">{opt.count}</span>
+            <span>{opt.label}</span>
+            <span className="font-mono text-[11px] opacity-70">({opt.count})</span>
           </button>
         ))}
       </div>
 
-      <div className="flex items-center gap-2 flex-1 sm:max-w-xs">
-        {/* Пошук */}
+      {/* Пошук та зона */}
+      <div className="flex items-center gap-2 flex-1 sm:max-w-sm">
         <div className="relative flex-1">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500 pointer-events-none" />
           <input
             type="text"
             value={filters.search}
             onChange={handleSearchChange}
-            placeholder="Пошук..."
-            className="w-full bg-slate-900 text-slate-100 placeholder-slate-500 text-xs rounded-lg pl-8 pr-2.5 py-1.5 border border-slate-800 hover:border-slate-700 focus:border-slate-500 outline-none transition-colors"
+            placeholder="Пошук за нікнеймом або коментарем..."
+            className="w-full bg-slate-950/60 text-slate-100 placeholder-slate-500 text-xs rounded-lg pl-8 pr-2.5 py-1.5 border border-slate-800 hover:border-slate-700 focus:border-emerald-500/80 focus:ring-1 focus:ring-emerald-500/20 outline-none transition-all"
           />
         </div>
 
-        {/* Фільтр зони */}
         <select
           value={filters.zoneId}
           onChange={handleZoneChange}
-          className="bg-slate-900 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 border border-slate-800 hover:border-slate-700 focus:border-slate-500 outline-none cursor-pointer"
+          className="bg-slate-950/60 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 border border-slate-800 hover:border-slate-700 focus:border-emerald-500/80 outline-none cursor-pointer"
         >
           <option value="all">Усі зони</option>
           {GAMING_ZONES.map((z) => (
