@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
 
 export interface HeaderProps {
   totalCount: number;
@@ -18,17 +18,12 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl sticky top-0 z-40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Бренд */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399] animate-pulse" />
-            <span className="text-base font-bold tracking-tight text-white font-sans">
-              CYBER<span className="text-emerald-400">CLUB</span>
-            </span>
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <Gamepad2 className="w-4 h-4" />
           </div>
-          <span className="text-slate-700 text-xs font-mono">/</span>
-          <span className="hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
-            <Activity className="w-3 h-3 text-emerald-400" />
-            Live Arena
+          <span className="text-base font-bold tracking-tight text-white font-sans">
+            CYBER<span className="text-emerald-400">CLUB</span>
           </span>
         </div>
 
