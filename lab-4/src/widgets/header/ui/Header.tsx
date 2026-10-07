@@ -1,5 +1,5 @@
 import React from 'react';
-import { Gamepad2 } from 'lucide-react';
+import { Gamepad2, Wallet } from 'lucide-react';
 
 export interface HeaderProps {
   totalCount: number;
@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Метрики */}
-        <div className="flex items-center gap-2 sm:gap-4 text-xs font-mono">
+        <div className="flex items-center gap-2 sm:gap-3 text-xs font-mono">
           <div className="flex items-center gap-1.5 text-slate-400 bg-slate-900/60 px-2.5 py-1 rounded-lg border border-slate-800/60">
             <span className="text-slate-500 text-[11px]">ВСЬОГО</span>
             <span className="font-semibold text-slate-100">{totalCount}</span>
@@ -44,9 +44,13 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="font-semibold text-emerald-300">{completedCount}</span>
           </div>
 
-          <div className="flex items-center gap-1.5 text-violet-300 bg-violet-500/10 px-3 py-1 rounded-lg border border-violet-500/20 font-semibold">
-            <span className="text-violet-400 text-[11px]">КАСА</span>
-            <span>{totalRevenue} ₴</span>
+          {/* Баланс клубу */}
+          <div className="flex items-center gap-2 bg-slate-900/90 text-slate-100 px-3 py-1.5 rounded-lg border border-slate-700/80 shadow-sm">
+            <Wallet className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-slate-400 text-[10px] tracking-wider uppercase">БАЛАНС</span>
+              <span className="font-bold text-emerald-400">{totalRevenue} ₴</span>
+            </div>
           </div>
         </div>
       </div>

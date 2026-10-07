@@ -1,6 +1,7 @@
 export interface GamingZone {
   id: string;
   name: string;
+  shortName: string;
   ratePerHour: number;
   totalPcs: number;
   accent: {
@@ -14,49 +15,53 @@ export interface GamingZone {
 export const GAMING_ZONES: GamingZone[] = [
   {
     id: 'standard',
-    name: 'Standard Zone',
+    name: 'Standard Zone (ПК #1-20)',
+    shortName: 'Standard',
     ratePerHour: 60,
     totalPcs: 20,
     accent: {
-      text: 'text-sky-400',
-      bg: 'bg-sky-500/10',
-      border: 'border-sky-500/20',
-      dot: 'bg-sky-400',
+      text: 'text-blue-400',
+      bg: 'bg-blue-500/10',
+      border: 'border-blue-500/30',
+      dot: 'bg-blue-400',
     },
   },
   {
     id: 'vip',
-    name: 'VIP Lounge',
+    name: 'VIP Lounge (ПК #21-30)',
+    shortName: 'VIP Lounge',
     ratePerHour: 90,
     totalPcs: 10,
     accent: {
-      text: 'text-violet-400',
-      bg: 'bg-violet-500/10',
-      border: 'border-violet-500/20',
-      dot: 'bg-violet-400',
+      text: 'text-purple-300',
+      bg: 'bg-purple-500/15',
+      border: 'border-purple-500/30',
+      dot: 'bg-purple-400',
     },
   },
   {
     id: 'bootcamp',
-    name: 'Boot Camp 5x5',
+    name: 'Boot Camp 5x5 (Team Room)',
+    shortName: 'Boot Camp',
     ratePerHour: 120,
     totalPcs: 5,
     accent: {
-      text: 'text-emerald-400',
-      bg: 'bg-emerald-500/10',
-      border: 'border-emerald-500/20',
+      text: 'text-emerald-300',
+      bg: 'bg-emerald-500/15',
+      border: 'border-emerald-500/30',
       dot: 'bg-emerald-400',
     },
   },
   {
     id: 'ps5',
-    name: 'PlayStation 5',
+    name: 'PlayStation 5 Arena (#1-4)',
+    shortName: 'PS5 Arena',
     ratePerHour: 80,
     totalPcs: 4,
     accent: {
-      text: 'text-amber-400',
-      bg: 'bg-amber-500/10',
-      border: 'border-amber-500/20',
+      text: 'text-amber-300',
+      bg: 'bg-amber-500/15',
+      border: 'border-amber-500/30',
       dot: 'bg-amber-400',
     },
   },

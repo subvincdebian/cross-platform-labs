@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Sparkles, Calendar, Clock, Monitor, Timer } from 'lucide-react';
 import { Button, Input, Select, Card, AlertMessage } from '@/shared/ui';
 import { GAMING_ZONES, GamingZone } from '@/shared/config/zones';
 import { Booking } from '@/entities/booking';
@@ -9,7 +8,11 @@ export interface BookingFormProps {
 }
 
 export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
-  const today = new Date().toISOString().split('T')[0];
+  // Дати для швидкого вибору
+  const formatDate = (d: Date) => d.toISOString().split('T')[0];
+  const today = formatDate(new Date());
+  const tomorrow = formatDate(new Date(Date.now() + 86400000));
+  const dayAfter = formatDate(new Date(Date.now() + 86400000 * 2));
 
   const [playerName, setPlayerName] = useState('');
   const [zoneId, setZoneId] = useState(GAMING_ZONES[0].id);
@@ -77,27 +80,25 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
     label: `${z.name} — ${z.ratePerHour} ₴/год`,
   }));
 
+  const quickDates = [
+    { label: 'Сьогодні', value: today },
+    { label: 'Завтра', value: tomorrow },
+    { label: 'Післязавтра', value: dayAfter },
+  ];
+
+  const quickTimes = ['12:00', '15:00', '18:00', '21:00', '23:00'];
+  const quickDurations = [1, 2, 3, 5];
+
   return (
     <Card className="flex flex-col gap-4">
-      {/* Заголовок форми */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-            <Sparkles className="w-3.5 h-3.5" />
-          </div>
-          <div>
-            <h2 className="text-sm font-semibold text-slate-100">
-              Нове бронювання
-            </h2>
-            <p className="text-[11px] text-slate-500">
-              Оформлення ігрового місця
-            </p>
-          </div>
-        </div>
-
-        <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${currentZone.accent.border} ${currentZone.accent.bg} ${currentZone.accent.text}`}>
-          {currentZone.ratePerHour} ₴ / год
-        </span>
+      {/* Заголовок форми: без іконки та без плашки тарифу */}
+      <div className="pb-3 border-b border-slate-800/80">
+        <h2 className="text-base font-bold text-slate-100 tracking-tight">
+          Нове бронювання
+        </h2>
+        <p className="text-xs text-slate-400 mt-0.5">
+          Оформлення ігрового місця
+        </p>
       </div>
 
       {alert && (
@@ -108,7 +109,8 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
         />
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Гравець */}
         <Input
           label="Гравець"
           badge="Нікнейм"
@@ -120,6 +122,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
           placeholder="Наприклад: s1mple"
         />
 
+        {/* Ігрова зона */}
         <Select
           label="Ігрова зона"
           value={zoneId}
@@ -134,40 +137,104 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
           options={zoneOptions}
         />
 
-        <div className="grid grid-cols-2 gap-3">
+        {/* Зручний вибір дати */}
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-medium text-slate-300">Дата</span>
+            <div className="flex items-center gap-1">
+              {quickDates.map((qd) => (
+                <button
+                  key={qd.value}
+                  type="button"
+                  onClick={() => setDate(qd.value)}
+                  className={`px-2 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer ${
+                    date === qd.value
+                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold'
+                      : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 border border-slate-800'
+                  }`}
+                >
+                  {qd.label}
+                </button>
+              ))}
+            </div>
+          </div>
           <Input
-            label="Дата"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
+        </div>
+
+        {/* Зручний вибір часу початку */}
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-medium text-slate-300">Час початку</span>
+            <div className="flex items-center gap-1">
+              {quickTimes.map((qt) => (
+                <button
+                  key={qt}
+                  type="button"
+                  onClick={() => setStartTime(qt)}
+                  className={`px-1.5 py-0.5 rounded text-[11px] font-mono transition-colors cursor-pointer ${
+                    startTime === qt
+                      ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40 font-semibold'
+                      : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 border border-slate-800'
+                  }`}
+                >
+                  {qt}
+                </button>
+              ))}
+            </div>
+          </div>
           <Input
-            label="Час початку"
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
           />
         </div>
 
+        {/* ПК та Тривалість */}
         <div className="grid grid-cols-2 gap-3">
           <Input
-            label={`ПК # (макс. ${currentZone.totalPcs})`}
+            label={`ПК # (1 - ${currentZone.totalPcs})`}
             type="number"
             min={1}
             max={currentZone.totalPcs}
             value={pcNumber}
             onChange={(e) => setPcNumber(Number(e.target.value))}
           />
-          <Input
-            label="Тривалість (год)"
-            type="number"
-            min={1}
-            max={24}
-            value={durationHours}
-            onChange={(e) => setDurationHours(Math.max(1, Number(e.target.value)))}
-          />
+
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-medium text-slate-300">Тривалість</span>
+              <div className="flex items-center gap-1">
+                {quickDurations.map((h) => (
+                  <button
+                    key={h}
+                    type="button"
+                    onClick={() => setDurationHours(h)}
+                    className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors cursor-pointer ${
+                      durationHours === h
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold'
+                        : 'bg-slate-900/80 text-slate-400 hover:text-slate-200 border border-slate-800'
+                    }`}
+                  >
+                    {h}г
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Input
+              type="number"
+              min={1}
+              max={24}
+              value={durationHours}
+              onChange={(e) => setDurationHours(Math.max(1, Number(e.target.value)))}
+            />
+          </div>
         </div>
 
+        {/* Коментар */}
         <Input
           label="Коментар"
           value={notes}
@@ -175,14 +242,22 @@ export const BookingForm: React.FC<BookingFormProps> = ({ onAddBooking }) => {
           placeholder="Побажання щодо девайсів чи ігор"
         />
 
-        {/* Розрахунковий блок чека */}
-        <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 font-mono text-xs">
-          <span className="text-slate-500">
-            {durationHours} год &times; {currentZone.ratePerHour} ₴
-          </span>
-          <div className="flex items-center gap-1.5">
-            <span className="text-slate-400 text-[11px]">РАЗОМ:</span>
-            <span className="text-sm font-bold text-emerald-400">
+        {/* Чіткий блок розрахунку вартості: текст добре видно */}
+        <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 border border-slate-700/80 shadow-inner">
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-medium">
+              Тарифікація
+            </span>
+            <span className="text-sm font-semibold text-slate-100 font-mono tracking-tight">
+              {durationHours} год &times; {currentZone.ratePerHour} ₴/год
+            </span>
+          </div>
+
+          <div className="text-right flex flex-col gap-0.5">
+            <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 font-medium">
+              До сплати
+            </span>
+            <span className="text-lg font-bold text-emerald-400 font-mono">
               {estimatedPrice} ₴
             </span>
           </div>

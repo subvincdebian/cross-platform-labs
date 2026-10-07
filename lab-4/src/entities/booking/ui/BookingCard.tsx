@@ -15,7 +15,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({
   onToggleStatus,
   onDelete,
 }) => {
-  const zone = GAMING_ZONES.find((z) => z.id === booking.zoneId);
+  const zone = GAMING_ZONES.find((z) => z.id === booking.zoneId || z.name === booking.zoneName);
   const accent = zone?.accent || {
     text: 'text-slate-300',
     bg: 'bg-slate-800',
@@ -64,7 +64,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({
                 className={`inline-flex items-center gap-1.5 text-[11px] font-mono px-2 py-0.5 rounded border ${accent.border} ${accent.bg} ${accent.text}`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${accent.dot}`} />
-                {booking.zoneName}
+                {zone?.name || booking.zoneName}
               </span>
 
               {/* Статус сесії */}
