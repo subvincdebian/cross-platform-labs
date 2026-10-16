@@ -10,7 +10,7 @@
 - **Мова:** TypeScript (строгий режим, path alias `@/*`)
 - **Компоненти React Native:** `View`, `Text`, `TextInput`, `TouchableOpacity`, `FlatList`, `StyleSheet`, `Alert.alert`, `StatusBar`
 - **Безпечна зона екрана:** `react-native-safe-area-context` (`SafeAreaProvider`, `SafeAreaView`)
-- **Архітектура:** Feature-Sliced Design (FSD) + зворотна сумісність із папкою `components/` за методичкою
+- **Архітектура:** Pure Feature-Sliced Design (FSD)
 
 ---
 
@@ -18,34 +18,36 @@
 ```
 lab-5/
 ├── src/
+│   ├── app/                      # Шар ініціалізації застосунку та провайдерів
+│   │   ├── App.tsx               # SafeAreaProvider та підключення головного екрана
+│   │   └── index.ts
 │   ├── pages/                    # Шар сторінок / екранів
-│   │   └── club-bookings/        # Головний екран CyberClubScreen (стан, обробники, SafeAreaView)
-│   │       ├── ui/CyberClubScreen.tsx
+│   │   └── club-bookings/        # Головний екран CyberClubScreen
+│   │       ├── ui/CyberClubScreen.tsx  # Стан bookings, add/toggle/delete, SafeAreaView
 │   │       └── index.ts
-│   ├── widgets/                  # Самодостатні блоки інтерфейсу
+│   ├── widgets/                  # Самодостатні UI-блоки
 │   │   ├── header/               # Заголовок та лічильники ("Усього: N · Виконано: M")
 │   │   │   ├── ui/Header.tsx
 │   │   │   └── index.ts
-│   │   ├── booking-form/         # Форма додавання з валідацією через Alert.alert
+│   │   ├── booking-form/         # Форма додавання з нативною валідацією Alert.alert
 │   │   │   ├── ui/BookingForm.tsx
 │   │   │   └── index.ts
 │   │   └── booking-list/         # Прокручуваний FlatList з порожнім станом та flex: 1
 │   │       ├── ui/BookingList.tsx
 │   │       └── index.ts
+│   ├── features/                 # Бізнес-сценарії користувача
+│   │   └── filter-bookings/      # Сегментовані таби фільтрації та пошук за нікнеймом
+│   │       ├── ui/BookingFilters.tsx
+│   │       └── index.ts
 │   ├── entities/                 # Бізнес-сутність предметної області
-│   │   └── booking/              # Інтерфейс Booking та компонент BookingItem
-│   │       ├── model/types.ts
-│   │       ├── ui/BookingItem.tsx
+│   │   └── booking/              # Модель сутності Booking
+│   │       ├── model/types.ts    # Інтерфейси Booking, NewBookingPayload, BookingStatusFilter
+│   │       ├── ui/BookingItem.tsx# Картка сесії, toggle (зелений фон, strikethrough), видалення
 │   │       └── index.ts
 │   └── shared/                   # Перевикористовувані ресурси, конфігурація та стилі
 │       ├── config/zones.ts       # Ігрові зони (Standard, VIP, Boot Camp, PS5), тарифи
 │       └── theme/colors.ts       # Колірна палітра інтерфейсу
-├── components/                   # Сумісність із базовою методичкою кафедри
-│   ├── Header.tsx                # Експорт віджета Header
-│   ├── BookingForm.tsx           # Експорт форми BookingForm
-│   ├── BookingItem.tsx           # Експорт елемента списку BookingItem
-│   └── BookingList.tsx           # Експорт контейнера BookingList
-├── App.tsx                       # Точка входу клієнта, SafeAreaProvider
+├── App.tsx                       # Точка входу клієнта Expo (re-export src/app/App)
 ├── app.json                      # Конфігурація Expo проєкту CyberClub Mobile
 ├── index.ts                      # Реєстрація кореневого компонента (registerRootComponent)
 ├── package.json                  # Декларація залежностей та скриптів
@@ -70,7 +72,7 @@ npm start
 ```bash
 npx expo start
 ```
-Якщо локальна мережа блокує пряме Wi-Fi з'єднання між комп'ютером і смартфоном:
+Якщо локальна Wi-Fi мережа блокує прямі з'єднання між комп'ютером і смартфоном:
 ```bash
 npx expo start --tunnel
 ```
@@ -93,7 +95,7 @@ npx expo start --tunnel
 1. **Крок 1. Загальний вигляд застосунку:**
    - Відображається шапка з заголовком "CyberClub Mobile" та статистикою "Усього бронювань: 2 · Виконано: 1".
    - Картка форми "Додати бронювання" з полем нікнейму, кнопками вибору зон, числовими полями ПК та годин гри і кнопкою "Додати бронювання".
-   - Картка списку бронювань, що займає вільний простір екрана (`flex: 1`). Вміст не заходить під системні вирізи завдяки `SafeAreaView`.
+   - Картка списку бронювань із панеллю фільтрації та пошуку, що займає вільний простір екрана (`flex: 1`). Вміст не заходить під системні вирізи завдяки `SafeAreaView`.
 2. **Крок 2. Перевірка порожнього поля (валідація):**
    - Натисніть кнопку "Додати бронювання" з порожнім полем або якщо введено лише пробіли.
    - З'являється системне вікно `Alert.alert("Помилка", "Будь ласка, введіть нікнейм гравця.")`.
@@ -115,5 +117,5 @@ npx expo start --tunnel
    - При додаванні великої кількості записів `FlatList` плавно прокручується всередині нижньої картки, а форма вгорі залишається зафіксованою на екрані.
    - Завдяки `keyboardShouldPersistTaps="handled"` взаємодія з елементами списку доступна навіть при відкритій клавіатурі.
 7. **Крок 7. Перевірка Fast Refresh:**
-   - Змініть текст заголовка у файлі `src/widgets/header/ui/Header.tsx` (або `components/Header.tsx`), наприклад додавши своє ім'я: "CyberClub Mobile - Міхал".
+   - Змініть текст заголовка у файлі `src/widgets/header/ui/Header.tsx`, наприклад додавши своє ім'я: "CyberClub Mobile - Міхал".
    - Збережіть файл — інтерфейс на пристрої миттєво оновить заголовок без перезавантаження та втрати стану.

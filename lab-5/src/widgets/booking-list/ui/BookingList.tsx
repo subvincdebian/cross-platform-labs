@@ -1,15 +1,30 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { Booking, BookingItem } from '@/entities/booking';
+import { Booking, BookingItem, BookingStatusFilter } from '@/entities/booking';
+import { BookingFilters } from '@/features/filter-bookings';
 
 export interface BookingListProps {
-  bookings: Booking[];
+  totalCount: number;
+  activeCount: number;
+  completedCount: number;
+  filteredBookings: Booking[];
+  search: string;
+  onSearchChange: (text: string) => void;
+  status: BookingStatusFilter;
+  onStatusChange: (status: BookingStatusFilter) => void;
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
 export const BookingList: React.FC<BookingListProps> = ({
-  bookings,
+  totalCount,
+  activeCount,
+  completedCount,
+  filteredBookings,
+  search,
+  onSearchChange,
+  status,
+  onStatusChange,
   onToggle,
   onDelete,
 }) => {
@@ -17,7 +32,7 @@ export const BookingList: React.FC<BookingListProps> = ({
     <View style={styles.card}>
       <Text style={styles.sectionTitle}>Список бронювань</Text>
 
-      {bookings.length === 0 ? (
+      {totalCount === 0 ? (
         <View style={styles.emptyContainer}>
           <Text style={styles.emptyText}>
             Бронювань поки немає. Додайте перше!
@@ -25,24 +40,43 @@ export const BookingList: React.FC<BookingListProps> = ({
         </View>
       ) : (
         <>
+          {/* Фіча фільтрації та швидкого пошуку */}
+          <BookingFilters
+            search={search}
+            onSearchChange={onSearchChange}
+            status={status}
+            onStatusChange={onStatusChange}
+            totalCount={totalCount}
+            activeCount={activeCount}
+            completedCount={completedCount}
+          />
+
           <Text style={styles.hintText}>
             Торкніться бронювання, щоб позначити його виконаним.
           </Text>
 
-          <FlatList
-            data={bookings}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <BookingItem
-                booking={item}
-                onToggle={onToggle}
-                onDelete={onDelete}
-              />
-            )}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.listContent}
-          />
+          {filteredBookings.length === 0 ? (
+            <View style={styles.noResultsContainer}>
+              <Text style={styles.noResultsText}>
+                За заданим запитом нічого не знайдено.
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              data={filteredBookings}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <BookingItem
+                  booking={item}
+                  onToggle={onToggle}
+                  onDelete={onDelete}
+                />
+              )}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.listContent}
+            />
+          )}
         </>
       )}
     </View>
@@ -53,16 +87,14 @@ export default BookingList;
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1, // Займає весь вільний простір екрана під формою
+    flex: 1, // Займає весь вільний простір екрана під формою за методичкою
     backgroundColor: '#ffffff',
     borderRadius: 16,
     padding: 16,
-    // Тінь для iOS
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
-    // Тінь для Android
     elevation: 3,
   },
   sectionTitle: {
@@ -74,7 +106,7 @@ const styles = StyleSheet.create({
   hintText: {
     fontSize: 12,
     color: '#64748b',
-    marginBottom: 12,
+    marginBottom: 8,
   },
   emptyContainer: {
     flex: 1,
@@ -85,6 +117,18 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 14,
     color: '#64748b',
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  noResultsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 24,
+  },
+  noResultsText: {
+    fontSize: 13,
+    color: '#94a3b8',
     textAlign: 'center',
     fontStyle: 'italic',
   },
