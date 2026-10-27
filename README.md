@@ -1,107 +1,78 @@
-# Крос-платформне програмування (КПП)
+<img src="https://raw.githubusercontent.com/subvincdebian/subvincdebian/main/assets/repo-cross-platform-labs.svg" alt="cross-platform-labs project overview" width="100%" />
 
-Репозиторій для виконання лабораторних робіт з навчальної дисципліни **"Крос-платформне програмування"**.
+# CyberClub · Cross-Platform Labs
 
-* **Освітня програма:** "Технології веброзробки та вебдизайн"
-* **Спеціальність:** F6 "Інформаційні системи і технології"
-* **Факультет:** Інформаційних технологій, КНУ імені Тараса Шевченка
-* **Виконав:** студент 2 курсу групи **ВЕБ-21** **Аг Міхал**
-* **Викладач:** к.т.н., доц. **Фендьо Олена Миколаївна**
-* **Навчальний рік:** 2026/2027
+Coursework exploring the same esports club booking domain across a browser interface, REST and GraphQL APIs, a React SPA, and an Expo mobile app. Each lab is a separate learning project.
 
----
+## Labs and source map
 
-## 🎮 Наскрізна тема семестрового проєкту
-> **"Розробка застосунку для кіберспортивного клубу (CyberClub)"**
+| Lab | Implementation | Stack and storage |
+| --- | --- | --- |
+| [1 — Browser app](lab-1/) | Responsive booking interface and session history | HTML, CSS, JavaScript, localStorage |
+| [2 — REST API](lab-2/) | Booking CRUD, DTO validation, request logging | NestJS, TypeScript, MongoDB, Mongoose |
+| [3 — GraphQL API](lab-3/) | Registration, login, booking queries and mutations | NestJS, Apollo Server, JWT, bcryptjs; in-memory data |
+| [4 — React SPA](lab-4/) | Booking form, pricing, status changes, search, filters | React 19, Vite 6, Tailwind CSS 4, TypeScript, localStorage |
+| [5 — Mobile app](lab-5/) | Booking form, list, status changes, search, filters | React Native, Expo, TypeScript; in-memory state |
 
-У межах дисципліни розробляється повноцінна кросплатформна екосистема для кіберспортивного клубу/арени:
-* Клієнтська частина для відвідувачів та гравців (бронювання ігрових ПК, перегляд зон, реєстрація на клубні турніри CS2/Dota 2/Valorant, баланс).
-* Серверний бекенд для обліку сесій, користувачів та обладнання.
-* Мобільний та десктопний клієнти (React Native, Electron/Tauri).
+The React and mobile clients organize code into `app`, `pages`, `widgets`, `features`, `entities`, and `shared` layers. [Design documentation](docs/tspp/lab3-design/) contains architecture diagrams, an ER diagram, a wireframe, and a mockup for the broader project concept.
 
----
+## Run locally
 
-## 📁 Структура лабораторних робіт
+Use Node.js and npm for labs 2–5; the locked React Native dependency accepts Node.js 24.3+ within the 24.x line. Install dependencies separately for each lab you want to run. There is no root npm workspace.
 
-| Каталог | Назва лабораторної роботи | Використані технології | Опис та статус |
-| :--- | :--- | :--- | :--- |
-| [`lab-1/`](./lab-1/) | **ЛР № 1.1 – 1.2:** Основи кросплатформності та створення адаптивного вебінтерфейсу | HTML5, CSS3, JavaScript, LocalStorage | Адаптивна вебсторінка кіберклубу з темною темою, бронюванням ПК, підтримкою WebView та збереженням сесій у LocalStorage. |
-| [`lab-2/`](./lab-2/) | **ЛР № 2:** Розроблення серверної частини застосунку (REST API) | Node.js, NestJS, TypeScript, MongoDB Atlas, Mongoose | Модульний REST API бекенд: схема `Booking`, DTO-валідація, сервіси, контролери, CORS, middleware логування HTTP-запитів. |
-| [`lab-3/`](./lab-3/) | **ЛР № 3:** Побудова GraphQL API засобами Apollo Server | Node.js, NestJS, GraphQL, Apollo Server, JWT | Модульний GraphQL бекенд: Apollo Sandbox, автентифікація (JWT, bcrypt), сутність `Booking`, захищені запити `me`, мутації `register`, `login`, `createBooking`, `deleteBooking`. |
-| [`lab-4/`](./lab-4/) | **ЛР № 4:** Вебверсія SPA-застосунку на React | React 19, Tailwind CSS v4, TypeScript, Vite, FSD | Клієнтський SPA-застосунок бронювання кіберклубу з архітектурою Feature-Sliced Design (FSD), LocalStorage, фільтрацією та адаптивним інтерфейсом. |
-| `lab-5/` | **ЛР № 5:** Мобільний застосунок | React Native, Expo | *Заплановано* |
-| `lab-6/` | **ЛР № 6:** Десктопний застосунок | Electron | *Заплановано* |
-| `lab-7/` | **ЛР № 7:** Десктопний застосунок | Tauri | *Заплановано* |
-| `lab-8/` | **ЛР № 8:** Проєктування спільного коду та архітектури | Monorepo / Shared Modules | *Заплановано* |
-| `lab-9/` | **ЛР № 9:** Налаштування CI-конвеєра | GitHub Actions (CI) | *Заплановано* |
-| `lab-10/` | **ЛР № 10:** Налаштування CD-конвеєра | GitHub Actions (CD) | *Заплановано* |
+| Lab | Install from repository root | Start from repository root | Local entry point |
+| --- | --- | --- | --- |
+| 1 | No dependencies | Open `lab-1/index.html` in a browser | Local HTML file |
+| 2 | `npm --prefix lab-2 ci` | `npm --prefix lab-2 run start:dev` | `http://localhost:3000/api/bookings` |
+| 3 | `npm --prefix lab-3 ci` | `npm --prefix lab-3 run dev` | `http://localhost:4001/` — Apollo Sandbox |
+| 4 | `npm --prefix lab-4 ci` | `npm --prefix lab-4 run dev` | `http://localhost:5173/` |
+| 5 | `npm --prefix lab-5 ci` | `npm --prefix lab-5 start` | Expo development server |
 
----
+Before starting **lab 2**, provide a running MongoDB instance. Create `lab-2/.env`:
 
-## 🚀 Швидкий старт та інструкції з запуску
+```dotenv
+MONGO_URI=mongodb://localhost:27017/cyberclub
+PORT=3000
+```
 
-### 1. Лабораторна робота № 1 (`lab-1`)
-* Відкрийте `lab-1/index.html` у браузері або через розширення **Live Server** у VS Code.
-* Інтерфейс автоматично підлаштовується під десктопний екран і смартфони (перевірка через DevTools: `Ctrl + Shift + M`).
+A MongoDB Atlas connection string can be used instead. Lab 3 needs no database configuration. For lab 5, use a compatible Expo Go client or an emulator; the iOS simulator requires macOS and Xcode. The package also provides `npm --prefix lab-5 run android`, `npm --prefix lab-5 run ios`, and `npm --prefix lab-5 run web` entry points.
 
-### 2. Лабораторна робота № 2 (`lab-2`)
-1. Перейдіть до папки сервера:
-   ```bash
-   cd lab-2
-   ```
-2. Встановіть залежності (якщо не встановлені):
-   ```bash
-   npm install
-   ```
-3. Переконайтеся, що файл `.env` містить коректний `MONGO_URI` (підключення до MongoDB Atlas) та `PORT=3000`.
-4. Запустіть сервер у режимі розробки:
-   ```bash
-   npm run start:dev
-   ```
-5. Тестування API:
-   * Використовуйте файл `lab-2/requests.http` через розширення **REST Client** або **Thunder Client** у VS Code.
-   * Доступні ендпоінти: `GET /api/bookings`, `POST /api/bookings`, `GET /api/bookings/:id`, `PUT /api/bookings/:id`, `DELETE /api/bookings/:id`.
+## Checks
 
-### 3. Лабораторна робота № 3 (`lab-3`)
-1. Перейдіть до папки GraphQL сервера:
-   ```bash
-   cd lab-3
-   ```
-2. Встановіть залежності (якщо не встановлені):
-   ```bash
-   npm install
-   ```
-3. Запустіть GraphQL сервер:
-   ```bash
-   npm run dev
-   # або npm run start:dev
-   ```
-4. Відкрийте у браузері інтерфейс **Apollo Sandbox**:
-   * URL: `http://localhost:4001/`
-5. Тестування GraphQL API:
-   * Готові запити та мутації знаходяться у файлі `lab-3/test-queries.gql`.
-   * Підтримуються операції: `register`, `login`, захищений запит `me` (з токеном/без токена), захищена мутація `createBooking`, перегляд списків `bookings` та `users`, видалення `deleteBooking`.
+Run these commands from the repository root after installing the corresponding lab:
 
-### 4. Лабораторна робота № 4 (`lab-4`)
-1. Перейдіть до папки SPA-застосунку:
-   ```bash
-   cd lab-4
-   ```
-2. Встановіть залежності:
-   ```bash
-   npm install
-   ```
-3. Запустіть dev-сервер:
-   ```bash
-   npm run dev
-   ```
-4. Відкрийте застосунок у браузері: `http://localhost:5173/`
-5. Перевірка сценаріїв:
-   * Валідація порожніх полів форми (вивід червоного повідомлення про помилку).
-   * Додавання нового бронювання з автоматичним підрахунком вартості.
-   * Перемикання статусу (активне / виконано) з оновленням лічильників.
-   * Видалення бронювання.
-   * Пошук та фільтрація за статусом і зоною клубу.
-   * Збереження в LocalStorage при оновленні сторінки (F5).
-   * Адаптивність інтерфейсу на мобільних пристроях.
+```sh
+npm --prefix lab-2 run build
+npm --prefix lab-3 run build
+npm --prefix lab-4 run build
+```
 
+Lab 5 has no build, lint, or test script. To check its TypeScript configuration with the installed compiler:
+
+```sh
+cd lab-5
+npx tsc --noEmit
+```
+
+No lab currently exposes an automated test or lint script. Use [REST requests](lab-2/requests.http), [GraphQL operations](lab-3/test-queries.gql), and the lab-specific [browser](lab-1/README.md), [SPA](lab-4/README.md), and [mobile](lab-5/README.md) scenario checklists for manual verification: invalid input, create, filter, toggle status, delete, and empty states. Browser persistence applies to labs 1 and 4.
+
+## Scope and coursework
+
+These labs are independent demonstrations; the SPA and mobile app are not connected to the API labs. GraphQL users and bookings reset on server restart, and mobile bookings reset when the app restarts. Lab 3 uses a demonstration JWT signing key in source and does not enforce booking ownership on deletion. It needs further security work before use with real accounts or data.
+
+The design documents describe a broader target architecture, including PostgreSQL, payments, and additional modules. Those diagrams are design work rather than a list of implemented features. Existing lab READMEs retain the original Ukrainian coursework instructions; where version or platform notes differ, the checked-in package manifests and source describe the current implementation. No repository-level license is included.
+
+<details>
+<summary>Academic context and planned labs</summary>
+
+- **Course:** Cross-Platform Programming, academic year 2026/2027.
+- **Programme:** Web Development Technologies and Web Design.
+- **Speciality:** F6 — Information Systems and Technologies.
+- **Institution:** Faculty of Information Technology, Taras Shevchenko National University of Kyiv.
+- **Student:** Аг Міхал, second year, group ВЕБ-21.
+- **Instructor:** Фендьо Олена Миколаївна, associate professor, PhD.
+- **Semester theme:** An application for an esports club (CyberClub).
+
+The original semester plan also includes Electron (lab 6), Tauri (lab 7), shared code and architecture (lab 8), continuous integration (lab 9), and continuous delivery (lab 10). These directories are not present yet. Tournament registration, player balances, and the wider club ecosystem remain project goals.
+
+</details>
