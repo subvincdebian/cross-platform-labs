@@ -8,21 +8,21 @@ import { initBookingFormWidget } from '../widgets/booking-form/ui.js';
 import { initBookingListWidget } from '../widgets/booking-list/ui.js';
 
 /**
- * FSD App Layer: Головний модуль ініціалізації та координації стану застосунку.
+ * FSD App Layer: Головний модуль ініціалізації та координації стану застосунку CyberClub.
  */
 export async function bootstrapApp() {
-  const messageEl = document.getElementById('message') || document.getElementById('statusMessage');
+  const statusMessageEl = document.getElementById('statusMessage');
 
-  // Внутрішній реактивний стан списку бронювань
+  // Внутрішній стан списку бронювань
   let bookings = [];
 
-  // 1. Завантаження збережених даних із файлу на диску через IPC
+  // 1. Завантаження збережених даних із bookings.json через IPC
   try {
     const rawData = await ipcBridge.loadBookings();
     bookings = Array.isArray(rawData)
       ? rawData.map(normalizeBooking).filter(Boolean)
       : [];
-    console.log('[FSD:App] Завантажено бронювань із файлу:', bookings.length);
+    console.log('[FSD:App] Завантажено бронювань із файлу bookings.json:', bookings.length);
   } catch (err) {
     console.error('[FSD:App] Помилка завантаження даних:', err);
     bookings = [];
@@ -42,7 +42,7 @@ export async function bootstrapApp() {
       if (res.success) {
         bookings = res.updatedList;
         syncUI();
-        notificationService.show(messageEl, res.message, 'warning');
+        notificationService.show(statusMessageEl, res.message, 'warning');
       }
     },
   });
@@ -56,18 +56,18 @@ export async function bootstrapApp() {
     onAdd: async (payload) => {
       const res = await addBookingFeature(bookings, payload);
       if (!res.success) {
-        notificationService.show(messageEl, res.error, 'error');
+        notificationService.show(statusMessageEl, res.error, 'error');
         return { success: false };
       }
 
       bookings = res.updatedList;
       syncUI();
-      notificationService.show(messageEl, res.message, 'success');
+      notificationService.show(statusMessageEl, res.message, 'success');
       return { success: true };
     },
   });
 
-  // Синхронізація UI (список, шапка)
+  // Синхронізація UI (список та лічильники в шапці)
   function syncUI() {
     listWidget.render(bookings);
     updateHeaderWidget(bookings);
@@ -76,7 +76,7 @@ export async function bootstrapApp() {
   // Початковий рендеринг
   syncUI();
 
-  // Доступ до стану у window для інспекції в DevTools
+  // Доступ до стану у window для налагодження
   window.cyberClubState = {
     getBookings: () => bookings,
     syncUI,

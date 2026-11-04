@@ -41,17 +41,16 @@
 
 <main class="main container">
 
-    <!-- КАРТКА 1: ДОДАВАННЯ БРОНЮВАННЯ -->
+    <!-- КАРТКА 1: БРОНЮВАННЯ ІГРОВОГО МІСЦЯ -->
     <section class="card form-card">
-        <h2>Додати бронювання</h2>
+        <h2>Бронювання ігрового місця</h2>
         
         <div class="form-grid">
             <div class="form-row">
-                <label for="noteInput" class="field-label">Нікнейм відвідувача <span class="required">*</span></label>
+                <label for="playerNameInput" class="field-label">Нікнейм відвідувача <span class="required">*</span></label>
                 <input 
                     type="text" 
-                    id="noteInput" 
-                    name="playerName"
+                    id="playerNameInput" 
                     class="input-field" 
                     placeholder="Введіть нікнейм гравця..."
                     autocomplete="off"
@@ -91,10 +90,10 @@
             </div>
 
             <div class="form-row">
-                <label for="notesInput" class="field-label">Примітка до замовлення</label>
+                <label for="bookingNotesInput" class="field-label">Примітка до бронювання</label>
                 <input 
                     type="text" 
-                    id="notesInput" 
+                    id="bookingNotesInput" 
                     class="input-field" 
                     placeholder="Наприклад: розминка перед турніром, потрібна гарнітура"
                     autocomplete="off"
@@ -106,16 +105,16 @@
             <div id="tariffPill" class="tariff-pill">
                 Розрахунок вартості...
             </div>
-            <button id="addNoteButton" class="button">
+            <button id="bookButton" class="button">
                 Додати бронювання
             </button>
         </div>
 
-        <!-- Повідомлення про помилку/успіх (id="message" за методичкою) -->
-        <p id="message" class="status-message"></p>
+        <!-- Повідомлення про помилку/успіх -->
+        <p id="statusMessage" class="status-message"></p>
     </section>
 
-    <!-- КАРТКА 2: СПИСОК БРОНЮВАНЬ -->
+    <!-- КАРТКА 2: АКТИВНІ БРОНЮВАННЯ -->
     <section class="card list-card">
         <div class="list-card-header">
             <h2>Список бронювань</h2>
@@ -139,13 +138,13 @@
             Торкніться бронювання, щоб перемкнути статус (Активне / Виконано).
         </p>
 
-        <!-- Порожній стан за методичкою -->
+        <!-- Порожній стан -->
         <p id="emptyStateMessage" class="empty-state">
             Бронювань поки немає. Додайте перше!
         </p>
 
-        <!-- Список за методичкою (id="notesList") -->
-        <ul id="notesList" class="bookings-list">
+        <!-- Список бронювань -->
+        <ul id="bookingsList" class="bookings-list">
         </ul>
     </section>
 

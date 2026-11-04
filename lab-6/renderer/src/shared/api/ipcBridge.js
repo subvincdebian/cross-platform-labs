@@ -1,10 +1,10 @@
 /**
  * FSD Shared API: Клієнт взаємодії з головним процесом Electron через IPC.
- * Реалізує шаблон адаптера з автоматичним переключенням між cyberClubAPI та notesAPI.
+ * Працює виключно з API кіберспортивного клубу window.cyberClubAPI.
  */
 export const ipcBridge = {
   /**
-   * Завантаження збережених записів із файлу на диску через IPC
+   * Завантаження збережених бронювань із файлу bookings.json через IPC
    * @returns {Promise<Array>}
    */
   async loadBookings() {
@@ -14,19 +14,11 @@ export const ipcBridge = {
         return Array.isArray(data) ? data : [];
       } catch (err) {
         console.error('[ipcBridge] Помилка виклику cyberClubAPI.loadBookings:', err);
+        return [];
       }
     }
 
-    if (window.notesAPI?.loadNotes) {
-      try {
-        const data = await window.notesAPI.loadNotes();
-        return Array.isArray(data) ? data : [];
-      } catch (err) {
-        console.error('[ipcBridge] Помилка виклику notesAPI.loadNotes:', err);
-      }
-    }
-
-    // Резервний fallback для автономного запуску без Electron
+    // Резервний fallback для автономного браузерного тестування
     console.warn('[ipcBridge] IPC міст недоступний, використовується локальне сховище');
     try {
       const raw = localStorage.getItem('cyberclub_bookings');
@@ -37,7 +29,7 @@ export const ipcBridge = {
   },
 
   /**
-   * Збереження оновленого масиву записів у файл на диску через IPC
+   * Збереження оновленого масиву бронювань у файл bookings.json через IPC
    * @param {Array} bookings
    * @returns {Promise<boolean>}
    */
@@ -47,14 +39,7 @@ export const ipcBridge = {
         return await window.cyberClubAPI.saveBookings(bookings);
       } catch (err) {
         console.error('[ipcBridge] Помилка виклику cyberClubAPI.saveBookings:', err);
-      }
-    }
-
-    if (window.notesAPI?.saveNotes) {
-      try {
-        return await window.notesAPI.saveNotes(bookings);
-      } catch (err) {
-        console.error('[ipcBridge] Помилка виклику notesAPI.saveNotes:', err);
+        return false;
       }
     }
 

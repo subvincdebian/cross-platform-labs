@@ -1,15 +1,15 @@
 import { GAMING_ZONES, getZoneById } from '../../shared/config/zones.js';
 
 /**
- * FSD Widget UI: Форма додавання бронювання з динамічною калькуляцією тарифу.
+ * FSD Widget UI: Форма додавання бронювання клубу CyberClub.
  */
 export function initBookingFormWidget({ onAdd }) {
-  const noteInput = document.getElementById('noteInput') || document.getElementById('playerNameInput');
+  const playerInput = document.getElementById('playerNameInput');
   const zoneSelect = document.getElementById('zoneSelect');
   const pcNumberInput = document.getElementById('pcNumberInput');
   const durationInput = document.getElementById('durationInput');
-  const notesInput = document.getElementById('notesInput');
-  const addNoteButton = document.getElementById('addNoteButton') || document.getElementById('bookButton');
+  const notesInput = document.getElementById('bookingNotesInput');
+  const bookButton = document.getElementById('bookButton');
   const tariffPill = document.getElementById('tariffPill');
 
   // Ініціалізація списку зон у select
@@ -43,7 +43,7 @@ export function initBookingFormWidget({ onAdd }) {
   updateTariffPreview();
 
   const handleFormSubmit = async () => {
-    const player = noteInput?.value || '';
+    const player = playerInput?.value || '';
     const zoneId = zoneSelect?.value || 'standard';
     const pcNumber = pcNumberInput?.value || '1';
     const durationHours = durationInput?.value || '2';
@@ -58,9 +58,9 @@ export function initBookingFormWidget({ onAdd }) {
     });
 
     if (result && result.success) {
-      if (noteInput) {
-        noteInput.value = '';
-        noteInput.focus();
+      if (playerInput) {
+        playerInput.value = '';
+        playerInput.focus();
       }
       if (notesInput) {
         notesInput.value = '';
@@ -68,9 +68,9 @@ export function initBookingFormWidget({ onAdd }) {
     }
   };
 
-  addNoteButton?.addEventListener('click', handleFormSubmit);
+  bookButton?.addEventListener('click', handleFormSubmit);
 
-  noteInput?.addEventListener('keydown', (e) => {
+  playerInput?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleFormSubmit();
@@ -80,7 +80,7 @@ export function initBookingFormWidget({ onAdd }) {
   return {
     updateTariffPreview,
     clearInputs: () => {
-      if (noteInput) noteInput.value = '';
+      if (playerInput) playerInput.value = '';
       if (notesInput) notesInput.value = '';
     },
   };

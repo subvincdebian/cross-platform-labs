@@ -5,7 +5,7 @@ import { filterBookings } from '../../features/filter-bookings/model.js';
  * FSD Widget UI: Віджет списку бронювань із підтримкою фільтрації та пустого стану.
  */
 export function initBookingListWidget({ onToggle, onDelete }) {
-  const notesList = document.getElementById('notesList') || document.getElementById('bookingsList');
+  const bookingsList = document.getElementById('bookingsList');
   const searchInput = document.getElementById('searchInput');
   const filterTabs = document.querySelectorAll('.filter-tab');
   const emptyStateEl = document.getElementById('emptyStateMessage');
@@ -14,10 +14,10 @@ export function initBookingListWidget({ onToggle, onDelete }) {
   let currentStatus = 'all';
 
   function render(bookings = []) {
-    if (!notesList) return;
+    if (!bookingsList) return;
 
     const filtered = filterBookings(bookings, currentQuery, currentStatus);
-    notesList.innerHTML = '';
+    bookingsList.innerHTML = '';
 
     if (filtered.length === 0) {
       if (emptyStateEl) {
@@ -40,7 +40,7 @@ export function initBookingListWidget({ onToggle, onDelete }) {
         onToggle,
         onDelete,
       });
-      notesList.appendChild(itemEl);
+      bookingsList.appendChild(itemEl);
     });
   }
 

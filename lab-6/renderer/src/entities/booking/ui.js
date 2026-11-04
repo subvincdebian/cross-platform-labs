@@ -6,7 +6,7 @@ import { getZoneById } from '../../shared/config/zones.js';
 export function createBookingItemElement(booking, { onToggle, onDelete }) {
   const zone = getZoneById(booking.zoneId);
   const li = document.createElement('li');
-  li.className = `booking-item note-item ${booking.done ? 'item-done' : ''}`;
+  li.className = `booking-item ${booking.done ? 'item-done' : ''}`;
   li.dataset.id = booking.id;
 
   // Лівий контейнер із вмістом
@@ -41,7 +41,7 @@ export function createBookingItemElement(booking, { onToggle, onDelete }) {
   detailsRow.className = 'booking-card-details';
 
   const detailsSpan = document.createElement('span');
-  detailsSpan.className = 'booking-details note-text';
+  detailsSpan.className = 'booking-details';
   detailsSpan.textContent = `ПК #${booking.pcNumber} · ${booking.durationHours} год · ${booking.price} ₴`;
 
   detailsRow.appendChild(detailsSpan);

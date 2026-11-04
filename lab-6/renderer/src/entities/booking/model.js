@@ -16,8 +16,6 @@ export function createBookingEntity({
   const price = duration * zone.ratePerHour;
   const timestamp = Date.now();
 
-  const formattedText = `${player} - ${zone.name} (ПК #${pc}, ${duration} год, ${price} ₴)`;
-
   return {
     id: timestamp,
     player: player.trim(),
@@ -27,7 +25,6 @@ export function createBookingEntity({
     durationHours: duration,
     price,
     notes: notes.trim(),
-    text: formattedText,
     done: false,
     createdAt: new Date().toISOString(),
   };
@@ -37,7 +34,7 @@ export function normalizeBooking(raw) {
   if (!raw || typeof raw !== 'object') return null;
 
   const id = raw.id || Date.now();
-  const player = raw.player || raw.playerName || raw.text || 'Гість';
+  const player = raw.player || raw.playerName || 'Гівець';
   const zoneId = raw.zoneId || 'standard';
   const zone = getZoneById(zoneId);
   const duration = raw.durationHours || raw.duration || 2;
@@ -52,7 +49,6 @@ export function normalizeBooking(raw) {
     durationHours: duration,
     price,
     notes: raw.notes || '',
-    text: raw.text || `${player} - ${zone.name} (ПК #${raw.pcNumber || 1}, ${duration} год, ${price} ₴)`,
     done: Boolean(raw.done),
     createdAt: raw.createdAt || new Date().toISOString(),
   };
