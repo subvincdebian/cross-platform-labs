@@ -1,0 +1,503 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #0b0f19;
+    color: #e2e8f0;
+    line-height: 1.6;
+    overflow-x: hidden;
+    user-select: none;
+}
+
+.container {
+    width: 92%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ====================================================================
+   ШАПКА ЗАСТОСУНКУ (HEADER)
+   ==================================================================== */
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0369a1 100%);
+    color: #ffffff;
+    padding: 28px 0 32px;
+    text-align: center;
+    border-bottom: 2px solid #06b6d4;
+    box-shadow: 0 4px 24px rgba(6, 182, 212, 0.18);
+}
+
+.logo-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #06b6d4;
+    background-color: rgba(6, 182, 212, 0.12);
+    border: 1px solid #06b6d4;
+    padding: 3px 14px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+    background: linear-gradient(to right, #ffffff, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    font-size: 15px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+.stats-bar {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid #1e293b;
+    padding: 8px 18px;
+    border-radius: 24px;
+    gap: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+}
+
+.stat-label {
+    color: #94a3b8;
+}
+
+.stat-value {
+    font-weight: 800;
+    color: #f8fafc;
+}
+
+.stat-divider {
+    color: #475569;
+    font-weight: bold;
+}
+
+.text-cyan { color: #38bdf8 !important; }
+.text-green { color: #10b981 !important; }
+.text-gold { color: #f59e0b !important; }
+
+/* ====================================================================
+   ОСНОВНИЙ ВМІСТ ТА КАРТКИ (MAIN & CARDS)
+   ==================================================================== */
+.main {
+    padding: 24px 0 40px;
+}
+
+.card {
+    background: #111827;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 22px;
+    border: 1px solid #1f2937;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+    font-size: 20px;
+    color: #38bdf8;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ====================================================================
+   ФОРМА БРОНЮВАННЯ (FORM STYLES)
+   ==================================================================== */
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-row-split {
+    display: flex;
+    gap: 14px;
+}
+
+.form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+.field-label .required {
+    color: #ef4444;
+}
+
+.input-field,
+.select-field,
+.search-input {
+    padding: 11px 14px;
+    background-color: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    font-size: 14.5px;
+    color: #f8fafc;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    user-select: text;
+}
+
+.input-field:focus,
+.select-field:focus,
+.search-input:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.22);
+}
+
+.select-field {
+    cursor: pointer;
+}
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.tariff-pill {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #38bdf8;
+    flex: 1;
+}
+
+.button {
+    padding: 11px 24px;
+    background: linear-gradient(135deg, #0284c7, #06b6d4);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    white-space: nowrap;
+}
+
+.button:hover {
+    filter: brightness(1.15);
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.status-message {
+    min-height: 22px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 4px 2px;
+    transition: all 0.2s ease;
+}
+
+/* ====================================================================
+   СПИСОК БРОНЮВАНЬ ТА ЕЛЕМЕНТИ (LIST & ITEMS)
+   ==================================================================== */
+.list-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+.list-card-header h2 {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    width: 260px;
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+.tabs-group {
+    display: flex;
+    background-color: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.filter-tab {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.filter-tab.active {
+    background: #0284c7;
+    color: #ffffff;
+}
+
+.list-hint {
+    font-size: 12.5px;
+    color: #64748b;
+    margin-bottom: 12px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: #94a3b8;
+    font-size: 15px;
+    background-color: #1a2234;
+    border: 1px dashed #334155;
+    border-radius: 8px;
+}
+
+.bookings-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a2234;
+    border: 1px solid #24324d;
+    border-left: 4px solid #06b6d4;
+    padding: 13px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.booking-item:hover {
+    background-color: #202b42;
+    border-color: #3b82f6;
+}
+
+.booking-item.item-done {
+    opacity: 0.75;
+    background-color: #122822;
+    border-left-color: #10b981;
+}
+
+.booking-info {
+    flex: 1;
+    margin-right: 14px;
+}
+
+.booking-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+}
+
+.player-nick {
+    font-weight: 700;
+    font-size: 15.5px;
+    color: #38bdf8;
+}
+
+.player-nick.text-done {
+    text-decoration: line-through;
+    color: #6ee7b7;
+}
+
+.zone-badge {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #334155;
+}
+
+.status-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.badge-active {
+    background-color: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.badge-completed {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.booking-card-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #cbd5e1;
+}
+
+.booking-details {
+    font-weight: 500;
+}
+
+.booking-notes {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 12.5px;
+}
+
+.booking-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cancel-btn,
+.delete-button {
+    padding: 8px 16px;
+    background-color: #ef4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.cancel-btn:hover,
+.delete-button:hover {
+    background-color: #dc2626;
+}
+
+.cancel-btn:active,
+.delete-button:active {
+    transform: scale(0.96);
+}
+
+/* ====================================================================
+   КАРТКА ЗОН ТА ТАРИФІВ (INFO CARD)
+   ==================================================================== */
+.zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.zone-info-box {
+    background-color: #1a2234;
+    border: 1px solid #24324d;
+    padding: 14px;
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+}
+
+.zone-info-box:hover {
+    border-color: #06b6d4;
+}
+
+.standard-box { border-top: 3px solid #38bdf8; }
+.vip-box { border-top: 3px solid #a855f7; }
+.bootcamp-box { border-top: 3px solid #10b981; }
+.ps5-box { border-top: 3px solid #06b6d4; }
+
+.zone-info-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 2px;
+}
+
+.zone-info-rate {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #38bdf8;
+    margin-bottom: 6px;
+}
+
+.zone-info-box p {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* ====================================================================
+   ПІДВАЛ (FOOTER)
+   ==================================================================== */
+.footer {
+    border-top: 1px solid #1f2937;
+    padding: 24px 0;
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.footer p {
+    margin-bottom: 4px;
+}
