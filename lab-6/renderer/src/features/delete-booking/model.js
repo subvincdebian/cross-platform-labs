@@ -1,12 +1,7 @@
 import { ipcBridge } from '../../shared/api/ipcBridge.js';
 
-/**
- * FSD Feature: Видалення бронювання зі списку та збереження змін у файл через IPC.
- */
 export async function deleteBookingFeature(currentList, bookingId) {
   const updatedList = currentList.filter((item) => item.id !== bookingId);
-
-  // Синхронізація з файлом на диску через IPC
   await ipcBridge.saveBookings(updatedList);
 
   return {
@@ -16,9 +11,6 @@ export async function deleteBookingFeature(currentList, bookingId) {
   };
 }
 
-/**
- * Перемикання статусу виконання бронювання (активне / виконано)
- */
 export async function toggleBookingStatusFeature(currentList, bookingId) {
   const updatedList = currentList.map((item) => {
     if (item.id === bookingId) {

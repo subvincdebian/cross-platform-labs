@@ -1,16 +1,6 @@
-/**
- * FSD Shared UI: Модуль виведення статусних повідомлень користувачу.
- */
 let messageTimer = null;
 
 export const notificationService = {
-  /**
-   * Відображення текстового сповіщення під формою
-   * @param {HTMLElement|string} target Елемент або селектор абзацу
-   * @param {string} text Текст повідомлення
-   * @param {'error'|'success'|'info'|'warning'} type Тип сповіщення
-   * @param {number} durationMs Тривалість відображення у мілісекундах
-   */
   show(target, text, type = 'info', durationMs = 4000) {
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     if (!el) return;

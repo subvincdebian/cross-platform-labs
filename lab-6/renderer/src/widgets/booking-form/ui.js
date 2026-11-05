@@ -1,8 +1,5 @@
 import { GAMING_ZONES, getZoneById } from '../../shared/config/zones.js';
 
-/**
- * FSD Widget UI: Форма додавання бронювання клубу CyberClub.
- */
 export function initBookingFormWidget({ onAdd }) {
   const playerInput = document.getElementById('playerNameInput');
   const zoneSelect = document.getElementById('zoneSelect');
@@ -12,7 +9,6 @@ export function initBookingFormWidget({ onAdd }) {
   const bookButton = document.getElementById('bookButton');
   const tariffPill = document.getElementById('tariffPill');
 
-  // Ініціалізація списку зон у select
   if (zoneSelect) {
     zoneSelect.innerHTML = '';
     GAMING_ZONES.forEach((zone) => {

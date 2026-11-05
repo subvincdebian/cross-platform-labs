@@ -1,6 +1,3 @@
-/**
- * FSD Widget UI: Оновлення шапки та статистики сесій клубу.
- */
 export function updateHeaderWidget(bookings = []) {
   const totalCountEl = document.getElementById('statTotalCount');
   const activeCountEl = document.getElementById('statActiveCount');

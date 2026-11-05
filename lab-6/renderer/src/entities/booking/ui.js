@@ -1,54 +1,56 @@
 import { getZoneById } from '../../shared/config/zones.js';
 
-/**
- * FSD Entity UI: Побудова DOM-елемента картки бронювання в списку.
- */
 export function createBookingItemElement(booking, { onToggle, onDelete }) {
   const zone = getZoneById(booking.zoneId);
   const li = document.createElement('li');
-  li.className = `booking-item ${booking.done ? 'item-done' : ''}`;
+  li.className = `flex items-center justify-between p-3.5 rounded-lg border transition cursor-pointer ${
+    booking.done
+      ? 'bg-emerald-950/30 border-emerald-900/60 border-l-4 border-l-emerald-500 opacity-80'
+      : 'bg-slate-800/80 hover:bg-slate-800 border-slate-700/80 border-l-4 border-l-cyan-500'
+  }`;
   li.dataset.id = booking.id;
 
-  // Лівий контейнер із вмістом
   const infoDiv = document.createElement('div');
-  infoDiv.className = 'booking-info';
+  infoDiv.className = 'flex-1 mr-3';
 
-  // Верхній рядок: нікнейм, бейдж зони, статус
   const headerRow = document.createElement('div');
-  headerRow.className = 'booking-card-header';
+  headerRow.className = 'flex items-center gap-2 mb-1 flex-wrap';
 
   const nickSpan = document.createElement('span');
-  nickSpan.className = `player-nick ${booking.done ? 'text-done' : ''}`;
+  nickSpan.className = `player-nick font-bold text-[15px] ${booking.done ? 'line-through text-emerald-300' : 'text-sky-400'}`;
   nickSpan.textContent = booking.player;
 
   const zoneSpan = document.createElement('span');
-  zoneSpan.className = 'zone-badge';
+  zoneSpan.className = 'zone-badge inline-block text-[11px] font-bold px-2 py-0.5 rounded border';
   zoneSpan.style.borderColor = zone.borderBadge;
   zoneSpan.style.backgroundColor = zone.bgBadge;
   zoneSpan.style.color = zone.accentColor;
   zoneSpan.textContent = zone.shortName || booking.zoneName;
 
   const statusBadge = document.createElement('span');
-  statusBadge.className = `status-badge ${booking.done ? 'badge-completed' : 'badge-active'}`;
+  statusBadge.className = `text-[11px] font-bold px-2 py-0.5 rounded uppercase tracking-wider ${
+    booking.done
+      ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+      : 'bg-sky-500/15 text-sky-400 border border-sky-500/30'
+  }`;
   statusBadge.textContent = booking.done ? 'Виконано' : 'Активне';
 
   headerRow.appendChild(nickSpan);
   headerRow.appendChild(zoneSpan);
   headerRow.appendChild(statusBadge);
 
-  // Нижній рядок: деталі тарифікації та примітка
   const detailsRow = document.createElement('div');
-  detailsRow.className = 'booking-card-details';
+  detailsRow.className = 'flex items-center gap-2.5 text-xs text-slate-300 flex-wrap';
 
   const detailsSpan = document.createElement('span');
-  detailsSpan.className = 'booking-details';
+  detailsSpan.className = 'booking-details font-medium';
   detailsSpan.textContent = `ПК #${booking.pcNumber} · ${booking.durationHours} год · ${booking.price} ₴`;
 
   detailsRow.appendChild(detailsSpan);
 
   if (booking.notes) {
     const notesSpan = document.createElement('span');
-    notesSpan.className = 'booking-notes';
+    notesSpan.className = 'text-slate-400 italic text-[11.5px]';
     notesSpan.textContent = `«${booking.notes}»`;
     detailsRow.appendChild(notesSpan);
   }
@@ -56,21 +58,18 @@ export function createBookingItemElement(booking, { onToggle, onDelete }) {
   infoDiv.appendChild(headerRow);
   infoDiv.appendChild(detailsRow);
 
-  // Клік на тіло картки перемикає статус
-  infoDiv.style.cursor = 'pointer';
   infoDiv.title = 'Натисніть для перемикання статусу (Активне / Виконано)';
   infoDiv.addEventListener('click', () => {
     if (onToggle) onToggle(booking.id);
   });
 
-  // Правий контейнер: кнопка видалення
   const actionsDiv = document.createElement('div');
-  actionsDiv.className = 'booking-actions';
+  actionsDiv.className = 'flex items-center gap-2';
 
   const deleteBtn = document.createElement('button');
-  deleteBtn.className = 'cancel-btn delete-button';
+  deleteBtn.className = 'delete-button px-3.5 py-1.5 bg-red-600 hover:bg-red-500 active:scale-95 text-white rounded-md text-xs font-bold transition cursor-pointer';
   deleteBtn.textContent = 'Видалити';
-  deleteBtn.title = 'Видалити бронювання зі списку та зберегти зміни у файл';
+  deleteBtn.title = 'Видалити бронювання';
   deleteBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (onDelete) onDelete(booking.id);

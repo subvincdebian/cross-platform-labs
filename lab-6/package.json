@@ -1,21 +1,26 @@
 {
   "name": "cyberclub-desktop",
   "version": "1.0.0",
-  "description": "Десктопна версія застосунку для комп'ютерного клубу CyberClub засобами Electron та Feature-Sliced Design",
+  "description": "Десктопна версія застосунку для комп'ютерного клубу CyberClub засобами Electron, Tailwind CSS та Feature-Sliced Design",
   "main": "main.js",
   "scripts": {
+    "build:css": "tailwindcss -i ./renderer/src/app/index.css -o ./renderer/style.css --minify",
+    "prestart": "npm run build:css",
     "start": "electron ."
   },
   "keywords": [
     "electron",
     "cyberclub",
     "desktop",
+    "tailwind",
     "fsd",
     "feature-sliced-design"
   ],
   "author": "Аг Міхал (ВЕБ-21)",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^45.2.2"
+    "@tailwindcss/cli": "^4.0.9",
+    "electron": "^45.2.2",
+    "tailwindcss": "^4.0.9"
   }
 }

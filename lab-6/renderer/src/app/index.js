@@ -7,16 +7,10 @@ import { updateHeaderWidget } from '../widgets/header/ui.js';
 import { initBookingFormWidget } from '../widgets/booking-form/ui.js';
 import { initBookingListWidget } from '../widgets/booking-list/ui.js';
 
-/**
- * FSD App Layer: Головний модуль ініціалізації та координації стану застосунку CyberClub.
- */
 export async function bootstrapApp() {
   const statusMessageEl = document.getElementById('statusMessage');
-
-  // Внутрішній стан списку бронювань
   let bookings = [];
 
-  // 1. Завантаження збережених даних із bookings.json через IPC
   try {
     const rawData = await ipcBridge.loadBookings();
     bookings = Array.isArray(rawData)
@@ -28,7 +22,6 @@ export async function bootstrapApp() {
     bookings = [];
   }
 
-  // 2. Ініціалізація віджета списку
   const listWidget = initBookingListWidget({
     onToggle: async (id) => {
       const res = await toggleBookingStatusFeature(bookings, id);
@@ -51,7 +44,6 @@ export async function bootstrapApp() {
     listWidget.render(bookings);
   });
 
-  // 3. Ініціалізація віджета форми
   initBookingFormWidget({
     onAdd: async (payload) => {
       const res = await addBookingFeature(bookings, payload);
@@ -67,16 +59,13 @@ export async function bootstrapApp() {
     },
   });
 
-  // Синхронізація UI (список та лічильники в шапці)
   function syncUI() {
     listWidget.render(bookings);
     updateHeaderWidget(bookings);
   }
 
-  // Початковий рендеринг
   syncUI();
 
-  // Доступ до стану у window для налагодження
   window.cyberClubState = {
     getBookings: () => bookings,
     syncUI,

@@ -1,9 +1,6 @@
 import { createBookingItemElement } from '../../entities/booking/ui.js';
 import { filterBookings } from '../../features/filter-bookings/model.js';
 
-/**
- * FSD Widget UI: Віджет списку бронювань із підтримкою фільтрації та пустого стану.
- */
 export function initBookingListWidget({ onToggle, onDelete }) {
   const bookingsList = document.getElementById('bookingsList');
   const searchInput = document.getElementById('searchInput');
@@ -52,8 +49,12 @@ export function initBookingListWidget({ onToggle, onDelete }) {
 
     filterTabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        filterTabs.forEach((t) => t.classList.remove('active'));
-        tab.classList.add('active');
+        filterTabs.forEach((t) => {
+          t.classList.remove('bg-sky-600', 'text-white');
+          t.classList.add('text-slate-400', 'hover:text-slate-200');
+        });
+        tab.classList.remove('text-slate-400', 'hover:text-slate-200');
+        tab.classList.add('bg-sky-600', 'text-white');
         currentStatus = tab.dataset.status || 'all';
         if (onFilterChange) onFilterChange();
       });

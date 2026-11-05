@@ -2,10 +2,6 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
-/**
- * Отримання абсолютного шляху до файлу збереження bookings.json
- * у системній директорії користувача (app.getPath('userData')).
- */
 function getBookingsFilePath() {
   const userDataDir = app.getPath('userData');
   return path.join(userDataDir, 'bookings.json');
@@ -36,10 +32,6 @@ function createWindow() {
     mainWindow = null;
   });
 }
-
-// ====================================================================
-// ОБРОБНИКИ МІЖПРОЦЕСНОЇ ВЗАЄМОДІЇ (IPC HANDLERS ДЛЯ CYBERCLUB)
-// ====================================================================
 
 function handleLoadBookings() {
   const filePath = getBookingsFilePath();
@@ -78,11 +70,9 @@ function handleSaveBookings(bookings) {
   }
 }
 
-// Реєстрація каналів для кіберспортивного клубу CyberClub
 ipcMain.handle('bookings:load', () => handleLoadBookings());
 ipcMain.handle('bookings:save', (event, bookings) => handleSaveBookings(bookings));
 
-// Допоміжний канал отримання метаданих додатка
 ipcMain.handle('app:info', () => ({
   name: app.getName(),
   version: app.getVersion(),
@@ -90,10 +80,6 @@ ipcMain.handle('app:info', () => ({
   filePath: getBookingsFilePath(),
   platform: process.platform,
 }));
-
-// ====================================================================
-// ЖИТТЄВИЙ ЦИКЛ ЗАСТОСУНКУ (LIFECYCLE)
-// ====================================================================
 
 app.whenReady().then(() => {
   createWindow();

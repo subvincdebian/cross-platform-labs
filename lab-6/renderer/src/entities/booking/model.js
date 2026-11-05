@@ -1,8 +1,5 @@
 import { getZoneById } from '../../shared/config/zones.js';
 
-/**
- * FSD Entity: Модель даних бронювання CyberClub.
- */
 export function createBookingEntity({
   player,
   zoneId = 'standard',
@@ -34,7 +31,7 @@ export function normalizeBooking(raw) {
   if (!raw || typeof raw !== 'object') return null;
 
   const id = raw.id || Date.now();
-  const player = raw.player || raw.playerName || 'Гівець';
+  const player = raw.player || raw.playerName || 'Гість';
   const zoneId = raw.zoneId || 'standard';
   const zone = getZoneById(zoneId);
   const duration = raw.durationHours || raw.duration || 2;

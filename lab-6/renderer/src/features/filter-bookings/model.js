@@ -1,11 +1,7 @@
-/**
- * FSD Feature: Пошук та фільтрація списку бронювань.
- */
 export function filterBookings(bookings, query = '', statusFilter = 'all') {
   const normalizedQuery = (query || '').trim().toLowerCase();
 
   return bookings.filter((b) => {
-    // 1. Фільтрація за текстом
     const matchesSearch =
       !normalizedQuery ||
       (b.player && b.player.toLowerCase().includes(normalizedQuery)) ||
@@ -14,7 +10,6 @@ export function filterBookings(bookings, query = '', statusFilter = 'all') {
       (b.pcNumber && b.pcNumber.toString().includes(normalizedQuery)) ||
       (b.text && b.text.toLowerCase().includes(normalizedQuery));
 
-    // 2. Фільтрація за статусом
     let matchesStatus = true;
     if (statusFilter === 'active') matchesStatus = !b.done;
     if (statusFilter === 'completed') matchesStatus = Boolean(b.done);
