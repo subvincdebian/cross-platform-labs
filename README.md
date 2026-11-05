@@ -1,45 +1,49 @@
-<img src="https://raw.githubusercontent.com/subvincdebian/subvincdebian/main/assets/repo-cross-platform-labs.svg" alt="cross-platform-labs project overview" width="100%" />
+<img src="docs/repository-banner.svg" alt="CyberClub — лабораторні роботи з крос-платформного програмування" width="100%" />
 
-# CyberClub · Cross-Platform Labs
+# CyberClub
 
-Coursework exploring the same esports club booking domain across a browser interface, REST and GraphQL APIs, a React SPA, and an Expo mobile app. Each lab is a separate learning project.
+Лабораторні роботи з дисципліни «Крос-платформне програмування»: одна предметна область бронювання місць у комп'ютерному клубі, реалізована як вебсторінка, API, React SPA, мобільний та десктопний застосунки. Кожна лабораторна — окремий навчальний проєкт.
 
-## Labs and source map
+## Лабораторні та вихідний код
 
-| Lab | Implementation | Stack and storage |
-| --- | --- | --- |
-| [1 — Browser app](lab-1/) | Responsive booking interface and session history | HTML, CSS, JavaScript, localStorage |
-| [2 — REST API](lab-2/) | Booking CRUD, DTO validation, request logging | NestJS, TypeScript, MongoDB, Mongoose |
-| [3 — GraphQL API](lab-3/) | Registration, login, booking queries and mutations | NestJS, Apollo Server, JWT, bcryptjs; in-memory data |
-| [4 — React SPA](lab-4/) | Booking form, pricing, status changes, search, filters | React 19, Vite 6, Tailwind CSS 4, TypeScript, localStorage |
-| [5 — Mobile app](lab-5/) | Booking form, list, status changes, search, filters | React Native, Expo, TypeScript; in-memory state |
+| Робота                             | Реалізація                                                  | Стек і збереження даних                              |
+| ---------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------- |
+| [1 — Вебзастосунок](lab-1/)        | Адаптивне бронювання та історія сесій                       | HTML, CSS, JavaScript, localStorage                  |
+| [2 — REST API](lab-2/)             | CRUD бронювань, DTO-валідація, журнал запитів               | NestJS, TypeScript, MongoDB, Mongoose                |
+| [3 — GraphQL API](lab-3/)          | Реєстрація, вхід, запити й мутації бронювань                | NestJS, Apollo Server, JWT, bcryptjs; дані в пам'яті |
+| [4 — React SPA](lab-4/)            | Форма, тарифи, стани, пошук і фільтри                       | React, Vite, TypeScript, Tailwind CSS; localStorage  |
+| [5 — Мобільний застосунок](lab-5/) | Створення, перегляд, пошук і зміна стану бронювань          | React Native, Expo, TypeScript; дані в пам'яті       |
+| [6 — CyberClub Desktop](lab-6/)    | Бронювання у вікні desktop-застосунку, збереження через IPC | Electron, JavaScript, HTML, CSS; локальний JSON-файл |
 
-The React and mobile clients organize code into `app`, `pages`, `widgets`, `features`, `entities`, and `shared` layers. [Design documentation](docs/tspp/lab3-design/) contains architecture diagrams, an ER diagram, a wireframe, and a mockup for the broader project concept.
+React, mobile та desktop UI використовують шари Feature-Sliced Design. [Проєктна документація](docs/tspp/lab3-design/) містить архітектурну й ER-діаграми, wireframe та mockup ширшої концепції CyberClub.
 
-## Run locally
+## Запуск
 
-Use Node.js and npm for labs 2–5; the locked React Native dependency accepts Node.js 24.3+ within the 24.x line. Install dependencies separately for each lab you want to run. There is no root npm workspace.
+Для робіт 2–6 потрібні Node.js та npm; **Node.js 24.11+ у гілці 24.x** відповідає вимозі React Native у lockfile. Залежності встановлюються окремо в кожній лабораторній — кореневого npm workspace немає.
 
-| Lab | Install from repository root | Start from repository root | Local entry point |
-| --- | --- | --- | --- |
-| 1 | No dependencies | Open `lab-1/index.html` in a browser | Local HTML file |
-| 2 | `npm --prefix lab-2 ci` | `npm --prefix lab-2 run start:dev` | `http://localhost:3000/api/bookings` |
-| 3 | `npm --prefix lab-3 ci` | `npm --prefix lab-3 run dev` | `http://localhost:4001/` — Apollo Sandbox |
-| 4 | `npm --prefix lab-4 ci` | `npm --prefix lab-4 run dev` | `http://localhost:5173/` |
-| 5 | `npm --prefix lab-5 ci` | `npm --prefix lab-5 start` | Expo development server |
+Команди в таблиці виконуються з кореня репозиторію:
 
-Before starting **lab 2**, provide a running MongoDB instance. Create `lab-2/.env`:
+| Робота | Встановлення            | Запуск                             | Точка входу                               |
+| ------ | ----------------------- | ---------------------------------- | ----------------------------------------- |
+| 1      | Не потрібне             | Відкрити `lab-1/index.html`        | Локальний HTML-файл                       |
+| 2      | `npm --prefix lab-2 ci` | `npm --prefix lab-2 run start:dev` | `http://localhost:3000/api/bookings`      |
+| 3      | `npm --prefix lab-3 ci` | `npm --prefix lab-3 run dev`       | `http://localhost:4001/` — Apollo Sandbox |
+| 4      | `npm --prefix lab-4 ci` | `npm --prefix lab-4 run dev`       | `http://localhost:5173/`                  |
+| 5      | `npm --prefix lab-5 ci` | `npm --prefix lab-5 start`         | Сервер розробки Expo                      |
+| 6      | `npm --prefix lab-6 ci` | `npm --prefix lab-6 start`         | Вікно CyberClub Desktop                   |
+
+Перед запуском роботи 2 потрібен MongoDB. Створи `lab-2/.env`:
 
 ```dotenv
 MONGO_URI=mongodb://localhost:27017/cyberclub
 PORT=3000
 ```
 
-A MongoDB Atlas connection string can be used instead. Lab 3 needs no database configuration. For lab 5, use a compatible Expo Go client or an emulator; the iOS simulator requires macOS and Xcode. The package also provides `npm --prefix lab-5 run android`, `npm --prefix lab-5 run ios`, and `npm --prefix lab-5 run web` entry points.
+Можна вказати рядок підключення MongoDB Atlas. GraphQL лабораторна не потребує налаштування БД. Для mobile використовуй сумісний Expo Go або емулятор; iOS Simulator потребує macOS та Xcode. Доступні також `npm --prefix lab-5 run android`, `npm --prefix lab-5 run ios` і `npm --prefix lab-5 run web`.
 
-## Checks
+## Перевірка роботи
 
-Run these commands from the repository root after installing the corresponding lab:
+Після встановлення залежностей доступні такі команди:
 
 ```sh
 npm --prefix lab-2 run build
@@ -47,32 +51,37 @@ npm --prefix lab-3 run build
 npm --prefix lab-4 run build
 ```
 
-Lab 5 has no build, lint, or test script. To check its TypeScript configuration with the installed compiler:
+Для перевірки типів mobile із встановленим TypeScript:
 
 ```sh
 cd lab-5
 npx tsc --noEmit
 ```
 
-No lab currently exposes an automated test or lint script. Use [REST requests](lab-2/requests.http), [GraphQL operations](lab-3/test-queries.gql), and the lab-specific [browser](lab-1/README.md), [SPA](lab-4/README.md), and [mobile](lab-5/README.md) scenario checklists for manual verification: invalid input, create, filter, toggle status, delete, and empty states. Browser persistence applies to labs 1 and 4.
+У лабораторних немає налаштованих автоматизованих test або lint scripts. У lab-5 і lab-6 також немає build script. Ручні сценарії: порожнє введення, створення, пошук, фільтри, зміна стану, видалення та відновлення даних після перезапуску там, де передбачено збереження.
 
-## Scope and coursework
+Детальні перевірки: [REST-запити](lab-2/requests.http), [GraphQL-операції](lab-3/test-queries.gql), інструкції для [браузера](lab-1/README.md), [SPA](lab-4/README.md), [mobile](lab-5/README.md) і [desktop](lab-6/README.md).
 
-These labs are independent demonstrations; the SPA and mobile app are not connected to the API labs. GraphQL users and bookings reset on server restart, and mobile bookings reset when the app restarts. Lab 3 uses a demonstration JWT signing key in source and does not enforce booking ownership on deletion. It needs further security work before use with real accounts or data.
+## Збереження даних і межі навчального проєкту
 
-The design documents describe a broader target architecture, including PostgreSQL, payments, and additional modules. Those diagrams are design work rather than a list of implemented features. Existing lab READMEs retain the original Ukrainian coursework instructions; where version or platform notes differ, the checked-in package manifests and source describe the current implementation. No repository-level license is included.
+- Роботи незалежні: SPA, mobile та desktop не підключені до API лабораторних.
+- lab-1 і lab-4 зберігають дані в localStorage; lab-3 — у пам'яті серверного процесу; lab-5 — у пам'яті застосунку.
+- lab-6 зберігає `bookings.json` у `app.getPath('userData')`. Збереження проходить через preload/IPC; `contextIsolation` увімкнено, `nodeIntegration` вимкнено. Це навчальна реалізація, а не повний аудит захисту Electron.
+- GraphQL лабораторна використовує демонстраційний JWT-ключ у коді та не перевіряє власника бронювання під час видалення. Перед роботою з реальними акаунтами й даними це потребує доопрацювання.
+
+Архітектурні діаграми описують також PostgreSQL, оплати й додаткові модулі як ширшу цільову систему; вони не означають, що все перелічене вже реалізовано. Поточні команди й залежності визначаються `package.json` та lockfile кожної роботи. Кореневого файлу ліцензії немає; поле MIT у `lab-6/package.json` не поширюється автоматично на решту репозиторію.
 
 <details>
-<summary>Academic context and planned labs</summary>
+<summary>Навчальний контекст і подальші роботи</summary>
 
-- **Course:** Cross-Platform Programming, academic year 2026/2027.
-- **Programme:** Web Development Technologies and Web Design.
-- **Speciality:** F6 — Information Systems and Technologies.
-- **Institution:** Faculty of Information Technology, Taras Shevchenko National University of Kyiv.
-- **Student:** Аг Міхал, second year, group ВЕБ-21.
-- **Instructor:** Фендьо Олена Миколаївна, associate professor, PhD.
-- **Semester theme:** An application for an esports club (CyberClub).
+- **Дисципліна:** Крос-платформне програмування, 2026/2027 навчальний рік.
+- **Освітня програма:** Технології веброзробки та вебдизайн.
+- **Спеціальність:** F6 — Інформаційні системи та технології.
+- **Заклад:** Факультет інформаційних технологій, Київський національний університет імені Тараса Шевченка.
+- **Виконав:** Аг Міхал, 2 курс, група ВЕБ-21.
+- **Викладач:** к.т.н., доц. Олена ФЕНДЬО.
+- **Індивідуальна тема:** застосунок для кіберспортивного клубу CyberClub.
 
-The original semester plan also includes Electron (lab 6), Tauri (lab 7), shared code and architecture (lab 8), continuous integration (lab 9), and continuous delivery (lab 10). These directories are not present yet. Tournament registration, player balances, and the wider club ecosystem remain project goals.
+У початковому плані залишаються Tauri (робота 7), спільний код та архітектура (8), continuous integration (9) і continuous delivery (10). Цих директорій поки немає. Турніри, баланси гравців та ширша екосистема клубу залишаються частиною концепції.
 
 </details>
