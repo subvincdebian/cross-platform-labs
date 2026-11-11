@@ -1,0 +1,12 @@
+{
+  "name": "cyberclub-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm test --workspaces --if-present",
+    "start:web": "npm start -w @cyberclub/web",
+    "start:desktop": "npm start -w @cyberclub/desktop"
+  }
+}

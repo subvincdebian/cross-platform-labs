@@ -1,0 +1,18 @@
+{
+  "name": "@cyberclub/desktop",
+  "productName": "cyberclub-workspace-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "main.js",
+  "dependencies": {
+    "@cyberclub/core": "*"
+  },
+  "devDependencies": {
+    "electron": "45.2.2"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test"
+  }
+}

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1180" viewBox="0 0 1120 1180">
+<title>Технологічний стек CyberClub за лабораторними роботами 1-8</title>
+<desc>П'ять рівнів. Web та desktop ЛР7-8 використовують спільне ядро через адаптери. REST пов'язаний із MongoDB. GraphQL зберігає дані в пам'яті. Серверні роботи виконані окремо від клієнтів.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0 0 L8 4 L0 8 Z" fill="#475569"/></marker></defs>
+<rect width="1120" height="1180" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#172033} .heading{font-size:26px;font-weight:700} .body{font-size:21px} .level{font-size:20px;font-weight:700} .note{font-size:20px;fill:#475569}</style>
+<text x="560" y="35" text-anchor="middle" class="heading">CyberClub · технологічний стек ЛР 1-8</text>
+<text x="22" y="110" class="level">Рівень 1</text><text x="22" y="139" class="level">Платформи</text>
+<text x="22" y="250" class="level">Рівень 2</text><text x="22" y="279" class="level">Клієнти</text>
+<text x="22" y="465" class="level">Рівень 3</text><text x="22" y="494" class="level">Спільний код</text>
+<text x="22" y="775" class="level">Рівень 4</text><text x="22" y="804" class="level">Сервер і API</text>
+<text x="22" y="1008" class="level">Рівень 5</text><text x="22" y="1037" class="level">База даних</text>
+<g id="browser"><rect x="180" y="80" width="285" height="84" rx="9" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="322.5" y="111" text-anchor="middle" font-size="23" font-weight="700">Браузер</text>
+<text x="322.5" y="141" text-anchor="middle" font-size="19">HTML, React SPA, web ЛР 7-8</text>
+</g>
+<g id="mobile"><rect x="485" y="80" width="285" height="84" rx="9" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="627.5" y="111" text-anchor="middle" font-size="23" font-weight="700">Android / iOS</text>
+<text x="627.5" y="141" text-anchor="middle" font-size="19">Цільові платформи Expo</text>
+</g>
+<g id="desktop"><rect x="790" y="80" width="285" height="84" rx="9" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="932.5" y="111" text-anchor="middle" font-size="23" font-weight="700">Десктопні ОС</text>
+<text x="932.5" y="141" text-anchor="middle" font-size="19">Electron · перевірено Windows</text>
+</g>
+<g id="web-ui"><rect x="180" y="220" width="285" height="142" rx="9" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="322.5" y="251" text-anchor="middle" font-size="23" font-weight="700">Вебклієнти</text>
+<text x="322.5" y="281" text-anchor="middle" font-size="19">HTML / CSS / JavaScript · ЛР 1</text>
+<text x="322.5" y="310" text-anchor="middle" font-size="19">React / Vite / Tailwind · ЛР 4</text>
+<text x="322.5" y="339" text-anchor="middle" font-size="19">JavaScript ESM · ЛР 7-8</text>
+</g>
+<g id="mobile-ui"><rect x="485" y="220" width="285" height="142" rx="9" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="627.5" y="251" text-anchor="middle" font-size="23" font-weight="700">Мобільний клієнт</text>
+<text x="627.5" y="281" text-anchor="middle" font-size="19">React Native / Expo · ЛР 5</text>
+<text x="627.5" y="310" text-anchor="middle" font-size="19">TypeScript, FSD</text>
+<text x="627.5" y="339" text-anchor="middle" font-size="19">Бронювання у стані React</text>
+</g>
+<g id="desktop-ui"><rect x="790" y="220" width="285" height="142" rx="9" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+<text x="932.5" y="251" text-anchor="middle" font-size="23" font-weight="700">Десктопний клієнт</text>
+<text x="932.5" y="281" text-anchor="middle" font-size="19">Electron · ЛР 6 і 7-8</text>
+<text x="932.5" y="310" text-anchor="middle" font-size="19">HTML / CSS / JavaScript</text>
+<text x="932.5" y="339" text-anchor="middle" font-size="19">main → preload → renderer</text>
+</g>
+<g id="web-adapter"><rect x="180" y="435" width="285" height="108" rx="9" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+<text x="322.5" y="466" text-anchor="middle" font-size="23" font-weight="700">LocalStorageAdapter</text>
+<text x="322.5" y="496" text-anchor="middle" font-size="19">web ЛР 7-8</text>
+<text x="322.5" y="525" text-anchor="middle" font-size="19">Сховище браузера</text>
+</g>
+<g id="core"><rect x="485" y="435" width="285" height="180" rx="9" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+<text x="627.5" y="466" text-anchor="middle" font-size="23" font-weight="700">@cyberclub/core</text>
+<text x="627.5" y="496" text-anchor="middle" font-size="19">Правила, тарифи, модель</text>
+<text x="627.5" y="525" text-anchor="middle" font-size="19">Пошук і сортування</text>
+<text x="627.5" y="554" text-anchor="middle" font-size="19">BookingsService</text>
+<text x="627.5" y="583" text-anchor="middle" font-size="19">Контракт load() / save()</text>
+</g>
+<g id="file-adapter"><rect x="790" y="435" width="285" height="108" rx="9" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+<text x="932.5" y="466" text-anchor="middle" font-size="23" font-weight="700">FileStorageAdapter</text>
+<text x="932.5" y="496" text-anchor="middle" font-size="19">desktop ЛР 7-8 · IPC</text>
+<text x="932.5" y="525" text-anchor="middle" font-size="19">Файл bookings.json</text>
+</g>
+<g id="rest"><rect x="180" y="745" width="435" height="141" rx="9" fill="#fffbeb" stroke="#92400e" stroke-width="1.5"/>
+<text x="397.5" y="776" text-anchor="middle" font-size="23" font-weight="700">REST API · ЛР 2</text>
+<text x="397.5" y="806" text-anchor="middle" font-size="22">NestJS / TypeScript</text>
+<text x="397.5" y="835" text-anchor="middle" font-size="22">CRUD /api/bookings</text>
+<text x="397.5" y="864" text-anchor="middle" font-size="22">DTO та Mongoose</text>
+</g>
+<g id="graphql"><rect x="640" y="745" width="435" height="141" rx="9" fill="#fffbeb" stroke="#92400e" stroke-width="1.5"/>
+<text x="857.5" y="776" text-anchor="middle" font-size="23" font-weight="700">GraphQL API · ЛР 3</text>
+<text x="857.5" y="806" text-anchor="middle" font-size="22">NestJS / Apollo Server / JWT</text>
+<text x="857.5" y="835" text-anchor="middle" font-size="22">Запити, мутації, вхід</text>
+<text x="857.5" y="864" text-anchor="middle" font-size="22">Дані в пам&#x27;яті процесу</text>
+</g>
+<g id="database"><rect x="180" y="978" width="435" height="100" rx="9" fill="#fffbeb" stroke="#92400e" stroke-width="1.5"/>
+<text x="397.5" y="1009" text-anchor="middle" font-size="23" font-weight="700">MongoDB · ЛР 2</text>
+<text x="397.5" y="1039" text-anchor="middle" font-size="22">Документи Booking, timestamps</text>
+<text x="397.5" y="1068" text-anchor="middle" font-size="22">Збереження через Mongoose</text>
+</g>
+<path d="M 322 164 V 220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 627 164 V 220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 932 164 V 220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 322 362 V 435" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="337" y="402" font-size="19" fill="#475569">ЛР 7-8</text>
+<path d="M 932 362 V 435" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="947" y="402" font-size="19" fill="#475569">ЛР 7-8</text>
+<path d="M 465 489 H 485" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 790 489 H 770" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 397 886 V 978" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="411" y="935" font-size="19" fill="#475569">Mongoose</text>
+<text x="180" y="661" class="note">ЛР 7-8 · npm workspaces · JavaScript ESM · тести node:test</text>
+<path d="M180 692 H1075" stroke="#94a3b8" stroke-dasharray="6 5"/>
+<text x="180" y="723" class="note">Серверні роботи мають окремі точки входу й моделі даних</text>
+<text x="640" y="1010" class="note">Клієнти зберігають бронювання локально.</text>
+<text x="640" y="1040" class="note">Стрілки показують наявні зв'язки в коді.</text>
+<text x="180" y="1132" class="note">FSD у клієнтах · спільна логіка виділена у web/desktop ЛР 7-8</text>
+</svg>

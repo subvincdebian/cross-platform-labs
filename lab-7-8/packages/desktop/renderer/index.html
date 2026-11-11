@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>CyberClub Desktop</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1>CyberClub <span>Desktop</span></h1>
+      <p>Бронювання ігрових місць</p>
+    </div>
+  </header>
+  <main class="container">
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title">Нове бронювання</h2>
+      <form id="booking-form" novalidate>
+        <fieldset name="bookingFields" disabled aria-describedby="status">
+          <label>Нікнейм гравця<input name="player" autocomplete="off"></label>
+          <label>Ігрова зона<select name="zoneId" aria-describedby="zone-range"></select></label>
+          <label>Номер місця<input name="pcNumber" type="number" step="1"></label>
+          <label>Тривалість, год<input name="durationHours" type="number" min="1" step="1" value="2"></label>
+          <div class="form-actions">
+            <span id="zone-range"></span>
+            <button type="submit">Додати бронювання</button>
+          </div>
+        </fieldset>
+      </form>
+      <p id="status" class="message" role="status"></p>
+    </section>
+    <section class="card" aria-labelledby="list-title">
+      <h2 id="list-title">Список бронювань</h2>
+      <div class="search">
+        <label for="search">Пошук за нікнеймом, зоною або номером</label>
+        <div>
+          <input id="search" type="text" disabled>
+          <button id="clear" class="secondary" type="button" hidden disabled>Очистити</button>
+        </div>
+      </div>
+      <p id="removal-status" class="message" role="status"></p>
+      <p id="empty" role="status">Завантаження бронювань...</p>
+      <ul id="bookings"></ul>
+    </section>
+  </main>
+  <dialog id="confirmation" aria-labelledby="delete-title" aria-describedby="delete-description">
+    <h2 id="delete-title">Видалення бронювання</h2>
+    <p id="delete-description"></p>
+    <form method="dialog" novalidate>
+      <button class="secondary" value="cancel" autofocus>Скасувати</button>
+      <button class="danger" value="delete">Видалити</button>
+    </form>
+  </dialog>
+  <script type="module" src="./src/app/index.js"></script>
+</body>
+</html>
